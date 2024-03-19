@@ -1,0 +1,91 @@
+.section-friends-side {
+    height: 100vh;
+    width: 25vw;
+    margin: 20px 2rem;
+}
+
+.section-friend-div {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.section-span-friend-request {
+    color: #808080;
+    font-size: 16px;
+}
+
+.section-friend-seeAll {
+    font-size: 16px;
+
+    &:hover {
+        color: #808080;
+        color: var(--main-color);
+        cursor: pointer;
+    }
+}
+
+.span-nav-profile-friends {
+    color: #808080;
+
+}
+
+.section-friend-request {
+    display: grid;
+    /* gap: 20px; */
+}
+
+.section-user-info {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    /* justify-content: space-between; */
+}
+
+.section-profile-info {
+    display: grid;
+    margin-left: 10px;
+}
+
+.span-section-profile-username {
+    font-weight: bold;
+}
+
+.section-profile-pic {
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.section-profile-pic img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.section-user-buttons {
+    display: flex;
+    margin-left: auto;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.span-friend-accept {
+    color: #808080;
+    &:hover {
+        color: var(--main-color);
+        /* text-decoration: underline; */
+        cursor: pointer;
+    }
+}
+
+.span-firend-ignore {
+    color: #808080;
+    &:hover {
+        color: crimson;
+        /* text-decoration: underline; */
+        cursor: pointer;
+    }
+}
