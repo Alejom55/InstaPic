@@ -1,0 +1,58 @@
+.section-user-info {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    /* justify-content: space-between; */
+}
+
+.section-profile-pic {
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.section-profile-pic img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.section-profile-info {
+    display: grid;
+    margin-left: 10px;
+}
+
+.span-section-profile-username {
+    font-weight: bold;
+}
+
+.section-user-buttons {
+    display: flex;
+    margin-left: auto;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.span-friend-accept {
+    color: #808080;
+    transition: 0.3s;
+
+    &:hover {
+        color: var(--main-color);
+        /* text-decoration: underline; */
+        cursor: pointer;
+    }
+}
+
+.span-firend-ignore {
+    color: #808080;
+    transition: 0.3s;
+
+    &:hover {
+        color: crimson;
+        /* text-decoration: underline; */
+        cursor: pointer;
+    }
+}

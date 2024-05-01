@@ -1,35 +1,44 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Sarabun", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-}
-
-:root {
-    --gray-color: #323232;
-    --main-color: #5E35B1;
-    --bg-color: #ECEBE7;
-}
-
 .nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    /* background-color: var(--bg-color); */
+    padding: 0rem 2rem;
+    background-color: var(--bg-color);
     height: 76px;
+    justify-content: space-between;
+    /* Esto colocará los elementos a los extremos del nav */
+    align-items: center;
+    /* Esto alineará verticalmente los elementos */
+
 }
 
-.nav-user-info {
+.btn-logIn {
+    background-color: #5E35B1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-logIn:hover {
+    background-color: #4527A0;
+    /* Cambia el color al hacer hover */
+}
+
+.nav-user {
     display: flex;
+}
+
+.nav-logo {
+    display: flex;
+    padding-right: 10px;
     align-items: center;
 }
 
-.nav-profile-info {
-    display: grid;
-    margin-left: 10px;
+.nav-div {
+    display: flex;
 }
 
 .span-nav-profile-username {
@@ -38,32 +47,24 @@
 
 .span-nav-profile-friends {
     color: #808080;
-
-}
-
-.nav-profile-pic {
-    width: 44px;
-    height: 44px;
-    overflow: hidden;
-    border-radius: 50%;
-}
-
-.nav-profile-pic img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
 }
 
 .nav-features {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
+    margin-left: auto;
+    /* margin-right: auto; */
+}
+
+.nav-current-user {
+    margin-right: auto;
 }
 
 .nav-buttons {
     border-left: 1px solid gray;
-    padding-left: 5px;
+    padding-left: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -75,6 +76,8 @@
     font-size: 100%;
     display: flex;
     z-index: 99;
+    display: flex;
+    align-items: center;
 }
 
 .nav-home,
@@ -91,6 +94,7 @@
     align-items: center;
     border-radius: 50%;
     cursor: pointer;
+    border: none;
 
     &::after {
         content: "";
@@ -112,7 +116,7 @@
     &.nav-home:hover::before {
         content: "Inicio";
         position: absolute;
-        bottom: -30px;
+        bottom: -32px;
         left: 50%;
         transform: translateX(-50%);
         background-color: rgba(0, 0, 0, 0.7);
@@ -126,7 +130,7 @@
     &.nav-messages:hover::before {
         content: "Mensajes";
         position: absolute;
-        bottom: -30px;
+        bottom: -32px;
         left: 50%;
         transform: translateX(-50%);
         background-color: rgba(0, 0, 0, 0.7);
@@ -140,7 +144,7 @@
     &.nav-search:hover::before {
         content: "Buscar";
         position: absolute;
-        bottom: -30px;
+        bottom: -32px;
         left: 50%;
         transform: translateX(-50%);
         background-color: rgba(0, 0, 0, 0.7);
@@ -154,7 +158,7 @@
     &.nav-friends:hover::before {
         content: "Amigos";
         position: absolute;
-        bottom: -30px;
+        bottom: -32px;
         left: 50%;
         transform: translateX(-50%);
         background-color: rgba(0, 0, 0, 0.7);
@@ -168,7 +172,7 @@
     &.nav-logOut:hover::before {
         content: "Cerrar sesión";
         position: absolute;
-        bottom: -30px;
+        bottom: -32px;
         left: 50%;
         transform: translateX(-50%);
         background-color: rgba(0, 0, 0, 0.7);
@@ -179,3 +183,38 @@
         z-index: 99;
     }
 }
+
+.create {
+    padding: 10px 20px;
+    margin-left: 20px;
+    display: flex;
+    gap: 10px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.4s;
+    background-color: var(--main-color);
+    color: white;
+    position: relative;
+    border-radius: 50px;
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        background-color: rgba(0, 0, 0, 0.3);
+        height: 100%;
+        width: 100%;
+        border-radius: 50px;
+        transition: transform 0.3s ease;
+    }
+    &:hover::after {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+}
+/* .upload {
+    width: fit-content;
+    font-size: large;
+    height: 20px;
+} */

@@ -1,0 +1,47 @@
+.publication-container {
+    width: 700px;
+    /* height: 795px; */
+    margin: 10px;
+    position: relative;
+    justify-content: center;
+    display: grid;
+}
+.image-container{
+    padding: 20px 0;
+}
+.publication-image {
+    width: 668px;
+    height: 568px;
+    object-fit: cover;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    width: 668px;
+    /* height: 568px; */
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay:hover {
+    opacity: 1;
+}
+
+.overlay-content {
+    color: #fff;
+    text-align: center;
+    font-size: large;
+}
+
+.heart-icon {
+    color: white;
+}
+
+.fi {
+    color: #fff;
+    font-size: xxx-large;
+}

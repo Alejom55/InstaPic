@@ -1,0 +1,9 @@
+<div class="section-friend-div">
+  <span class="section-span-friend-request">Solicitudes de amistad</span>
+  <span class="section-friend-seeAll">Ver todos</span>
+</div>
+<div class="section-friend-request">
+  @for(friend of friends; track friend.id ){
+  <friend-profile [avatar]="friend.avatar" [username]="friend.username" />
+  }
+</div>

@@ -1,0 +1,9 @@
+<div class="posts-container">
+  @for(post of posts; track post.id ){
+  <publication
+    [username]="post.username"
+    [image]="post.image"
+    [comments]="post.comments"
+  />
+  }
+</div>

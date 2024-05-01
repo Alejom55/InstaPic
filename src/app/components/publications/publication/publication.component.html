@@ -1,0 +1,27 @@
+<div class="publication-container">
+  <div class="image-container">
+    <img src="{{ image }}" alt="Image 8" class="publication-image" />
+    <div class="overlay">
+      <div class="overlay-content">
+        <div class="heart-icon">
+          <i class="fi fi-sr-heart"></i>
+        </div>
+        <p>{{ likes }}</p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <p>{{ username }}</p>
+      <p>{{ description }}</p>
+    </div>
+    <div class="comments">
+      @for(comment of comments; track comment.id ){
+      <div class="comment">
+        <p>{{ comment.username }}</p>
+        <p>{{ comment.comment }}</p>
+      </div>
+      }
+    </div>
+  </div>
+</div>
