@@ -6,19 +6,24 @@
     justify-content: center;
     display: grid;
 }
-.image-container{
+
+.image-container {
+    position: relative;
     padding: 20px 0;
 }
+
 .publication-image {
     width: 668px;
     height: 568px;
     object-fit: cover;
 }
+
 .overlay {
     position: absolute;
     top: 0;
     width: 668px;
-    /* height: 568px; */
+    margin: 20px 0;
+    height: 568px;
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
     transition: opacity 0.3s ease;
