@@ -9,5 +9,5 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-  @Input() isLogged = true;
+  @Input() isLogged = false;
 }
