@@ -19,29 +19,13 @@ export class AppComponent {
   getLogged(logged: boolean) {
     this.isLogged = logged;
   }
-  
+
   constructor() {
     if (localStorage.getItem('user')) {
       this.isLogged = true;
     } else {
       this.isLogged = false;
     }
-    console.log(this.isLogged)
   }
-
-  // constructor() {
-  //   if (localStorage.getItem('user')) {
-  //     this.isLogged = true;
-  //   } else {
-  //     this.isLogged = false;
-  //   }
-  // }
-  // constructor() {
-  //   if (localStorage.getItem('user')) {
-  //     this.isLogged = true;
-  //   } else {
-  //     this.isLogged = false;
-  //   }
-  // }
 
 }

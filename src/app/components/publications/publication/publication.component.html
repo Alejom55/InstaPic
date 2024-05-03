@@ -22,7 +22,7 @@
         <p>{{ comment.comment }}</p>
         <p>{{ comment.date }}</p>
       </div>
-      }
+      } @if(isLogged){
       <form (ngSubmit)="submitComment()">
         <input
           [(ngModel)]="newComment"
@@ -31,6 +31,7 @@
         />
         <button type="submit">Enviar Comentario</button>
       </form>
+      }
     </div>
     <p>{{ id }}</p>
   </div>

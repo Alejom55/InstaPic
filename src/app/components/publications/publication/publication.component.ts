@@ -25,23 +25,28 @@ export class PublicationComponent {
   @Input() comments: Comentario[] = []
   @Input() likes = 0
   @Input() id = 0
+  @Input() isLogged = false;
   newComment = '';
 
   submitComment() {
-    this.addComment(this.id, this.newComment, this.getUsername());
+    this.addComment(this.id, this.newComment, this.getUser().username);
     this.newComment = '';
   }
 
-  getUsername() {
+  getUser() {
     let user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.username;
+    return user;
   }
 
   getComments() {
     let posts = JSON.parse(localStorage.getItem('posts') || '{}');
     let post = posts.find((post: { id: number; }) => post.id === this.id);
+    if (localStorage.getItem('user')) {
+      this.isLogged = true;
+    } else {
+      this.isLogged = false;
+    }
     return post.comments;
-
   }
 
   post(key: string, data: any) {

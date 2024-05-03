@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PublicationComponent } from './publication/publication.component';
 type Post = {
   id: number;
@@ -67,6 +67,7 @@ export class PublicationsComponent {
     if (!localStorage.getItem('posts')) {
       this.post();
     }
+    // this.clear_localstorage();
   }
 
   get() {
