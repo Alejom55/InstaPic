@@ -25,7 +25,7 @@ export class PublicationComponent {
   @Input() comments: Comentario[] = []
   @Input() likes = 0
   @Input() id = 0
-  @Input() isLogged = false;
+  isLogged = false;
   newComment = '';
 
   submitComment() {
