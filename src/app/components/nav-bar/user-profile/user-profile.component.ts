@@ -9,13 +9,13 @@ import { Component, Input } from '@angular/core';
     <div class="nav-user-info">
       <div class="nav-profile-pic">
         <img
-          src={{user.avatar}}
+          src={{avatar}}
           alt="foto de perfil"
         />
       </div>
       <div class="nav-profile-info">
-        <span class="span-nav-profile-username">{{user.username}}</span>
-        <span class="span-nav-profile-friends">Amigos: {{user.friends}}</span>
+        <span class="span-nav-profile-username">{{username}}</span>
+        <span class="span-nav-profile-friends">Amigos: {{friends}}</span>
       </div>
     </div>
 </div>`,
@@ -56,9 +56,12 @@ import { Component, Input } from '@angular/core';
 `
 })
 export class UserProfileComponent {
-  user = {
-    username: 'José Julián Zapata Arbeláez',
-    friends: 50,
-    avatar: 'assets/images/profile photo/603a8623163a5.jpeg'
-  }
+  @Input() username = '';
+  @Input() friends = 0;
+  @Input() avatar = '';
+  // user = {
+  //   username: 'José Julián Zapata Arbeláez',
+  //   friends: 50,
+  //   avatar: 'assets/images/profile photo/603a8623163a5.jpeg'
+  // }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @Component({
@@ -10,4 +10,32 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 })
 export class NavBarComponent {
   @Input() isLogged = false;
+
+  get() {
+    let user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user;
+  }
+
+  post() {
+    let user = {
+      username: 'José Julián Zapata Arbeláez',
+      friends: 50,
+      avatar: 'assets/images/profile photo/603a8623163a5.jpeg'
+    }
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  delete() {
+    localStorage.removeItem('user');
+  }
+
+  logIn() {
+    this.post();
+    this.isLogged = true;
+  };
+  logOut() {
+    this.delete();
+    this.isLogged = false;
+  };
+
 }

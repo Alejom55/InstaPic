@@ -7,14 +7,14 @@
   <div class="nav-current-user">
     @if(isLogged){
     <div class="nav-user">
-      <app-user-profile />
+      <app-user-profile [username]="get().username" [friends]="get().friends" [avatar]="get().avatar"/>
       <div class="create">
         <i class="fi fi-sr-plus"></i>
         <span class="upload">Subir una foto</span>
       </div>
     </div>
     }@else {
-    <button class="btn-logIn" (click)="isLogged = true">Iniciar sesión</button>
+    <button class="btn-logIn" (click)="logIn()">Iniciar sesión</button>
     }
   </div>
   <div class="nav-features">
@@ -36,7 +36,7 @@
         <div class="nav-messages">
           <i class="fi fi-sr-messages"></i>
         </div>
-        <button class="nav-logOut" (click)="isLogged = false">
+        <button class="nav-logOut" (click)="logOut()">
           <i class="fi fi-sr-exit"></i>
         </button>
         }

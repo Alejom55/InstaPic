@@ -16,12 +16,22 @@
       <p>{{ description }}</p>
     </div>
     <div class="comments">
-      @for(comment of comments; track comment.id ){
+      @for(comment of getComments(); track comment.id ){
       <div class="comment">
         <p>{{ comment.username }}</p>
         <p>{{ comment.comment }}</p>
+        <p>{{ comment.date }}</p>
       </div>
       }
+      <form (ngSubmit)="submitComment()">
+        <input
+          [(ngModel)]="newComment"
+          name="newComment"
+          placeholder="Ingresa tu comentario..."
+        />
+        <button type="submit">Enviar Comentario</button>
+      </form>
     </div>
+    <p>{{ id }}</p>
   </div>
 </div>
