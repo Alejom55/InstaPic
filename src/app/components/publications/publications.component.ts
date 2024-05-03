@@ -67,8 +67,6 @@ export class PublicationsComponent {
     if (!localStorage.getItem('posts')) {
       this.post();
     }
-    // this.clear_localstorage();
-    // this.obtener_localstorage();
   }
 
   get() {
