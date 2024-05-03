@@ -29,12 +29,19 @@ export class PublicationComponent {
   newComment = '';
 
   submitComment() {
+    if(JSON.stringify(this.getUser()) === "{}"){
+      alert("Inicia Sesion para poder comentar >///<")
+      return
+    }
+    if (this.newComment === ''){
+      return
+    }
     this.addComment(this.id, this.newComment, this.getUser().username);
     this.newComment = '';
   }
 
   getUser() {
-    let user = JSON.parse(localStorage.getItem('user') || '{}');
+    let user = JSON.parse(localStorage.getItem('user') || "{}");
     return user;
   }
 

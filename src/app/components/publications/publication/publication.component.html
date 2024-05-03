@@ -18,11 +18,11 @@
     <div class="comments">
       @for(comment of getComments(); track comment.id ){
       <div class="comment">
-        <p>{{ comment.username }}</p>
-        <p>{{ comment.comment }}</p>
+        <span>{{ comment.username }}: </span>
+        <span class="description">{{ comment.comment }}</span>
         <p>{{ comment.date }}</p>
       </div>
-      } @if(isLogged){
+      } 
       <form (ngSubmit)="submitComment()">
         <input
           [(ngModel)]="newComment"
@@ -48,9 +48,7 @@
             </div>
           </div>
         </button>
-        
-      </form>
-      }
+      </form> 
     </div>
   </div>
 </div>

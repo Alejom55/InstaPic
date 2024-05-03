@@ -82,7 +82,7 @@
 button {
     font-family: inherit;
     font-size: 12px;
-    background: royalblue;
+    background: var(--main-color);
     height: 40px;
     color: white;
     padding: 1em 1em;
@@ -99,7 +99,6 @@ button {
   
   button span {
     display: block;
-    margin-left: 0.3em;
     transition: all 0.3s ease-in-out;
   }
   
@@ -114,7 +113,7 @@ button {
   }
   
   button:hover svg {
-    transform: translateX(1.2em) rotate(45deg) scale(1.1);
+    transform: translateX(0.1em) rotate(45deg) scale(1.1);
   }
   
   button:hover span {
