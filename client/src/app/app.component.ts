@@ -8,24 +8,11 @@ import { PublicationComponent } from './components/publications/publication/publ
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavBarComponent, FriendsRequestComponent, PublicationsComponent, PublicationComponent],
+  imports: [RouterOutlet, NavBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'InstaPic';
-  isLogged = false;
-  
-  getLogged(logged: boolean) {
-    this.isLogged = logged;
-  }
-
-  constructor() {
-    if (localStorage.getItem('user')) {
-      this.isLogged = true;
-    } else {
-      this.isLogged = false;
-    }
-  }
 
 }

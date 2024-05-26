@@ -3,7 +3,6 @@
     flex-direction: column;
     height: 100vh;
 }
-
 .main-content {
     display: flex;
     flex: 1;
@@ -11,7 +10,6 @@
 }
 
 .section-friends-side {
-    /* height: calc(100vh - 76px); */
     flex-shrink: 0;
     width: 30vw;
     min-width: 300px;
