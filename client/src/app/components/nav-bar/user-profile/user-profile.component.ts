@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
     <div class="nav-user-info">
       <div class="nav-profile-pic">
         <img
-          src={{avatar}}
+          src={{picture}}
           alt="foto de perfil"
         />
       </div>
@@ -58,7 +58,7 @@ import { Component, Input } from '@angular/core';
 export class UserProfileComponent {
   @Input() username = '';
   @Input() friends = 0;
-  @Input() avatar = '';
+  @Input() picture = '';
   // user = {
   //   username: 'José Julián Zapata Arbeláez',
   //   friends: 50,

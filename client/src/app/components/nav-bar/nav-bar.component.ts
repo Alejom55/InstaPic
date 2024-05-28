@@ -3,6 +3,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
 import { AuthUserService } from '../../../utils/auth.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,33 +13,42 @@ import { AuthUserService } from '../../../utils/auth.service';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
+  private userDataSubject = new Subject<any>();
+  private isLoggedInRecently = false;
   @Input() isLogged = false;
   username = ""
-  avatar = ""
+  picture = ""
   email = ""
   name = ""
+
   constructor(public auth: AuthService, private authUserService: AuthUserService) {
-    auth.idTokenClaims$.subscribe(claims => console.log(claims))
-    // console.log(auth.isAuthenticated$)
-    auth.user$.subscribe(user => {
-      console.log(user)
-      this.username = user?.nickname || ''
-      this.avatar = user?.picture || ''
-      this.email = user?.email || ''
-      this.name = user?.name || ''
-      console.log(user?.sub)
-    })
-    auth.isAuthenticated$.subscribe(isLogged => {
-      this.isLogged = isLogged;
-      if (isLogged) {
-        // this.authUserService.createUser(this.auth)
-        console.log(this.username)
-        console.log('avatar', this.avatar)
-        console.log('email', this.email)
-        console.log('name', this.name)
+    this.auth.idTokenClaims$.subscribe(user => {
+      if (user) {
+        this.auth.isAuthenticated$.subscribe(async isLogged => {
+          this.isLogged = isLogged;
+          if (isLogged && this.isLoggedInRecently) {
+            const userData = {
+              nickname: user.nickname,
+              picture: user.picture,
+              email: user.email,
+              name: user.name,
+              token: user.__raw
+            };
+            this.userDataSubject.next(userData); 
+            this.isLoggedInRecently = false; 
+          }
+        });
+        this.username = user.nickname || '';
+        this.picture = user.picture || '';
+
       }
-      console.log(isLogged)
-    })
+    });
+  }
+
+  ngOnInit(): void {
+    this.userDataSubject.subscribe(userData => {
+      this.authUserService.createUser(userData);
+    });
   }
 
 
@@ -51,7 +61,7 @@ export class NavBarComponent {
     let user = {
       username: 'José Julián Zapata Arbeláez',
       friends: 50,
-      avatar: 'assets/images/profile photo/603a8623163a5.jpeg'
+      picture: 'assets/images/profile photo/603a8623163a5.jpeg'
     }
     localStorage.setItem('user', JSON.stringify(user));
   }
@@ -59,13 +69,11 @@ export class NavBarComponent {
   delete() {
     localStorage.removeItem('user');
   }
-
   logIn() {
-    this.auth.loginWithPopup();
-    // this.authUserService.createUser(this.auth)
-    // this.authUserService.getData()
-    // this.post();
-  };
+    this.auth.loginWithPopup().subscribe(() => {
+      this.isLoggedInRecently = true;
+    });
+  }
   logOut() {
     this.authUserService.logOut(this.auth);
     this.delete();

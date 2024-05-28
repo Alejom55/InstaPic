@@ -7,7 +7,7 @@
   <div class="nav-current-user">
     @if(auth.isAuthenticated$ | async){
     <div class="nav-user">
-      <app-user-profile [username]="username" [friends]="get().friends" [avatar]="avatar"/>
+      <app-user-profile [username]="username" [friends]="get().friends" [picture]="picture"/>
       <!-- <app-user-profile [username]="get().username" [friends]="get().friends" [avatar]="get().avatar"/> -->
       <div class="create">
         <i class="fi fi-sr-plus"></i>

@@ -15,6 +15,7 @@ bootstrapApplication(AppComponent, {
         redirect_uri: window.location.origin
       }
     }),
+    
   ],
 }).catch((err) => console.error(err));
 
