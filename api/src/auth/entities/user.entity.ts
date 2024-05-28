@@ -1,27 +1,32 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Follower } from "src/follower/entities/follower.entity";
+import { Post } from "src/post/entities/post.entity";
+import { Column, CreateDateColumn, Entity, Index, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
-    @Column({
-        type: 'text',
-        unique: true,
-    })
+
+    @Column()
+    @Index({ unique: true })
     email: string;
+
     @Column({ type: 'text', nullable: true, })
     name: string;
-    @Column({ type: 'text', nullable: true, })
-    last_name: string;
+
     @Column('text')
+    @Index({ unique: true })
     nickname: string;
-    @Column('text')
-    password: string;
+
+    @Column({ type: 'text', nullable: false, })
+    picture: string;
+
     @Column({
         type: 'timestamp',
         nullable: true,
     })
     birthdate: Date;
+
     @CreateDateColumn({
         type: 'timestamp',
     })
@@ -30,6 +35,15 @@ export class User {
     @Column({ default: true })
     isActivated: boolean;
 
-    @Column({ type: 'text', nullable: true, })
-    picture: string;
+    @OneToMany(() => Post, post => post.user)
+    posts: Post[];
+  
+    @OneToMany(() => Follower, follower => follower.user)
+    followers: Follower[];
+  
+    @OneToMany(() => Follower, follower => follower.userFollower)
+    following: Follower[];
+
+
+
 }

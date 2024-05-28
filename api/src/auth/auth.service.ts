@@ -15,25 +15,29 @@ export class AuthService {
   ) { }
 
 
-  async create(CreateUserDto: CreateUserDto) {
+  async create2(CreateUserDto: CreateUserDto) {
     try {
-      const { password, ...userData } = CreateUserDto;
-      const newUser = this.userRepository.create({
-        password: bcryptjs.hashSync(password, 10),
-        ...userData
-      });
-      await this.userRepository.save(newUser);
-      const { password: _, ...user } = newUser;
-      return user;
 
+      const userData = CreateUserDto;
+      const newUser = this.userRepository.create(userData);
+      await this.userRepository.save(newUser);
+      return newUser;
     } catch (err) {
       if (err.code === '23505') {
         throw new BadRequestException('Email already exists')
       }
       console.log(err)
     }
-    console.log({ CreateUserDto })
-    return 'This action adds a new auth';
+  }
+  async create(createUserDto: CreateUserDto) {
+    const existingUser = await this.userRepository.findOne({ where: { email: createUserDto.email } });
+    if (existingUser) {
+      // throw new BadRequestException('Email already exists');
+      return 
+    }
+    const newUser = this.userRepository.create(createUserDto);
+    await this.userRepository.save(newUser);
+    return newUser;
   }
 
   findAll() {
