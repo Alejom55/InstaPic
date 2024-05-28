@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
-import { logIn, logOut } from '../../../utils/auth-utils';
+import { AuthUserService } from '../../../utils/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,11 +15,29 @@ export class NavBarComponent {
   @Input() isLogged = false;
   username = ""
   avatar = ""
-  constructor(public auth: AuthService) {
+  email = ""
+  name = ""
+  constructor(public auth: AuthService, private authUserService: AuthUserService) {
+    auth.idTokenClaims$.subscribe(claims => console.log(claims))
+    // console.log(auth.isAuthenticated$)
     auth.user$.subscribe(user => {
       console.log(user)
       this.username = user?.nickname || ''
       this.avatar = user?.picture || ''
+      this.email = user?.email || ''
+      this.name = user?.name || ''
+      console.log(user?.sub)
+    })
+    auth.isAuthenticated$.subscribe(isLogged => {
+      this.isLogged = isLogged;
+      if (isLogged) {
+        // this.authUserService.createUser(this.auth)
+        console.log(this.username)
+        console.log('avatar', this.avatar)
+        console.log('email', this.email)
+        console.log('name', this.name)
+      }
+      console.log(isLogged)
     })
   }
 
@@ -43,14 +61,14 @@ export class NavBarComponent {
   }
 
   logIn() {
-    logIn(this.auth);
-    this.post();
-    this.isLogged = true;
+    this.auth.loginWithPopup();
+    // this.authUserService.createUser(this.auth)
+    // this.authUserService.getData()
+    // this.post();
   };
   logOut() {
-    logOut(this.auth);
+    this.authUserService.logOut(this.auth);
     this.delete();
-    this.isLogged = false;
   };
 
 }
