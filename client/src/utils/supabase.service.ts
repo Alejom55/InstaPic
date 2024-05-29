@@ -12,12 +12,22 @@ export class SupabaseService {
   }
 
   async upload(file: File, folderName: string = 'base') {
-    const {error} = await this.supabase.storage.from('PostsBucket').upload(`${folderName}/${file.name}`, file);
+    // const { data, error } = await this.supabase
+    //   .storage
+    //   .createBucket('avatars', {
+    //     public: false,
+    //     allowedMimeTypes: ['image/png'],
+    //     fileSizeLimit: 1024
+    //   })
+    const { error } = await this.supabase
+      .storage
+      .from('PostsBucketPublic')
+      .upload(`${folderName}/${file.name}`, file);
     if (error) {
       alert(`Error al subir el archivo: ${error.message}`);
       console.error('Error al subir el archivo:', error);
     }
-    const { data } = await this.supabase.storage.from('PostsBucket').getPublicUrl(`${folderName}/${file.name}`);
+    const { data } = await this.supabase.storage.from('PostsBucketPublic').getPublicUrl(`${folderName}/${file.name}`);
     return data.publicUrl;
   }
 }

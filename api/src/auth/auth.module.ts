@@ -10,4 +10,4 @@ import { AuthGuard } from './guards/auth.guard';
   providers: [AuthService, AuthGuard],
   imports: [TypeOrmModule.forFeature([User])],
 })
-export class AuthModule {}
+export class AuthModule { }

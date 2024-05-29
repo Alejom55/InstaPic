@@ -13,9 +13,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './prueba.component.css'
 })
 export class PruebaComponent {
-  selectedFile: File | null = null;
-  userData: any;
 
+  uploadForm = this.fb.group({
+    description: ['', [Validators.required]],
+    fileTo: ['']
+  });
+
+  userData: any;
   constructor(private fb: FormBuilder, private supabaseService: SupabaseService, private authUserService: AuthUserService) {
 
   }
@@ -26,23 +30,21 @@ export class PruebaComponent {
     });
   }
 
-  uploadForm = this.fb.group({
-    description: ['', [Validators.required]],
-    file: ['']
-  });
+
   onFileSelected(event: any) {
     if (this.uploadForm.invalid) {
       alert('Debe llenar todos los campos')
       this.uploadForm.reset()
       return;
     }
-    const folderName = this.userData.nickname.toLowerCase().replace(' ', '_');
-    const file:File = event.target.files[0];
-    this.supabaseService.upload(file, folderName).then(data =>{
+    const description = this.uploadForm.get('description')?.value;
+    console.log('Descripción:', description);
+    const folderName = this.userData?.nickname?.toLowerCase().replace(' ', '_');
+    const file: File = event.target.files[0];
+    this.supabaseService.upload(file, folderName).then(data => {
       console.log(data);
       this.uploadForm.reset();
     })
-
   }
 
 }

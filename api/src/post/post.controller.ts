@@ -1,22 +1,17 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Post as PostEntity } from './entities/post.entity';
 
 
 @Controller('post')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(private readonly postService: PostService) { }
 
-  @Post()
-  create(@Body() createPostDto: CreatePostDto) {
+  @Post('upload')
+  create(@Body() createPostDto: CreatePostDto): Promise<PostEntity> {
     return this.postService.create(createPostDto);
   }
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('image',{
-    // storage: diskStorage({})
-  }))
 
   @Get()
   findAll() {
@@ -28,10 +23,10 @@ export class PostController {
     return this.postService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postService.update(+id, updatePostDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
+  //   return this.postService.update(+id, updatePostDto);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
