@@ -1,3 +1,4 @@
+import { Comment } from "src/comment/entities/comment.entity";
 import { Follower } from "src/follower/entities/follower.entity";
 import { Post } from "src/post/entities/post.entity";
 import { Column, CreateDateColumn, Entity, Index, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -37,6 +38,9 @@ export class User {
 
     @OneToMany(() => Post, post => post.user)
     posts: Post[];
+
+    @OneToMany(() => Comment, comment => comment.user, { cascade: true })
+    comments: Comment[];
   
     @OneToMany(() => Follower, follower => follower.user)
     followers: Follower[];
