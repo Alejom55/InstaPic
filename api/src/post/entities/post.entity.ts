@@ -13,7 +13,7 @@ export class Post {
     post_date: Date;
 
     @Column()
-    title: string;
+    description: string;
 
     @ManyToOne(() => User, user => user.posts, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'user_id' })

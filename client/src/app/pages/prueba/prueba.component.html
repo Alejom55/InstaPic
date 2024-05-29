@@ -1,5 +1,26 @@
 <p>prueba works!</p>
-<div>
-  <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-  <button (click)="onUpload()">Upload</button>
+<div class="container">
+  <div class="title">Subir imagen</div>
+  <form [formGroup]="uploadForm">
+    <label for="description">description</label>
+    <textarea
+      type="text"
+      id="description"
+      formControlName="description"
+      placeholder="Ingrese la descripcion"
+    ></textarea>
+    <input
+      type="file"
+      name="file"
+      id="file"
+      formControlName="fileTo"
+      (change)="onFileSelected($event)"
+    />
+    <label for="file">Seleccione su imagen</label>
+  </form>
 </div>
+<div>
+    <h1>Display Word</h1>
+    <p>{{ word }}</p>
+  </div>
+

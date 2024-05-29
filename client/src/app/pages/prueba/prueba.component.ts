@@ -1,37 +1,45 @@
 import { Component } from '@angular/core';
-import axios from 'axios';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SupabaseService } from '../../../utils/supabase.service';
+import { GlobalStateService } from '../../../utils/global-state.service';
+import { BrowserModule } from '@angular/platform-browser';
+
+
 @Component({
-  selector: 'app-prueba',
+  selector: 'image-upload',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './prueba.component.html',
   styleUrl: './prueba.component.css'
 })
 export class PruebaComponent {
   selectedFile: File | null = null;
+  word: string;
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+
+  constructor(private fb: FormBuilder, private supabaseService: SupabaseService, private globalStateService: GlobalStateService) {
+    this.word = '';
+
   }
 
-  async onUpload() {
-    if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('image', this.selectedFile, this.selectedFile.name);
 
-      try {
-        const response = await axios.post<{ imageUrl: string }>('/api/upload', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
+  ngOnInit(): void {
+    this.globalStateService.state$.subscribe(state => {
+      this.word = state;
+    });
+  }
 
-        console.log('Image URL:', response.data.imageUrl);
-        // Aquí puedes manejar la URL recibida, como almacenarla en la base de datos.
-      } catch (error) {
-        console.error('Error uploading the image', error);
-      }
+  uploadForm = this.fb.group({
+    description: ['', [Validators.required]],
+    file: ['']
+  });
+  onFileSelected(event: any) {
+    if (this.uploadForm.invalid) {
+      alert('Debe llenar todos los campos')
+      this.uploadForm.reset()
+      return;
     }
+    const folderName = this.uploadForm.controls.description.value;
   }
 
 }

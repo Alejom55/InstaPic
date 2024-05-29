@@ -12,7 +12,8 @@ export const routes: Routes = [
     {
         path: 'prueba',
         component: PruebaComponent
-    }
+    },
+
     // {
     //     path: 'home',
     // },
