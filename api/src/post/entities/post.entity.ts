@@ -1,7 +1,7 @@
 import { User } from "src/auth/entities/user.entity";
 import { Comment } from "src/comment/entities/comment.entity";
-import { Column, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+@Entity()
 export class Post {
     @PrimaryGeneratedColumn()
     id: number;

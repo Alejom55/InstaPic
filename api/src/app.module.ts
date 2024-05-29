@@ -4,10 +4,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PostModule } from './post/post.module';
 import { CommentModule } from './comment/comment.module';
 import { FollowerModule } from './follower/follower.module';
-import { PostModule } from './post/post.module';
 import { PostModule } from './post/post.module';
 
 
