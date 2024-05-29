@@ -3,7 +3,6 @@ import { FriendsRequestComponent } from '../../components/friends-request/friend
 import { PublicationsComponent } from '../../components/publications/publications.component';
 import { PublicationComponent } from '../../components/publications/publication/publication.component';
 import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
-import { GlobalStateService } from '../../../utils/global-state.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +19,7 @@ export class HomeComponent {
   getLogged(logged: boolean) {
     this.isLogged = logged;
   }
-  constructor(private globalStateService: GlobalStateService) {
+  constructor() {
     if (localStorage.getItem('user')) {
       this.isLogged = true;
     } else {

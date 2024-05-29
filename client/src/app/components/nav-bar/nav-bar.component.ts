@@ -3,7 +3,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
 import { AuthUserService } from '../../../utils/auth.service';
-import { Subject } from 'rxjs';
+import { Subject, combineLatest, filter } from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
@@ -21,35 +21,67 @@ export class NavBarComponent {
   email = ""
   name = ""
 
-  constructor(public auth: AuthService, private authUserService: AuthUserService) {
-    this.auth.idTokenClaims$.subscribe(user => {
-      if (user) {
-        this.auth.isAuthenticated$.subscribe(async isLogged => {
-          this.isLogged = isLogged;
-          if (isLogged && this.isLoggedInRecently) {
-            const userData = {
-              nickname: user.nickname,
-              picture: user.picture,
-              email: user.email,
-              name: user.name,
-              token: user.__raw
-            };
-            this.userDataSubject.next(userData); 
-            this.isLoggedInRecently = false; 
-          }
-        });
-        this.username = user.nickname || '';
-        this.picture = user.picture || '';
+  userData: any;
+
+  constructor(private authUserService: AuthUserService, public auth: AuthService) { }
+
+  ngOnInit(): void {
+    combineLatest([
+      this.auth.isAuthenticated$,
+      this.authUserService.userData$
+    ]).pipe(
+      filter(([isAuthenticated, userData]) => isAuthenticated && !!userData)
+    ).subscribe(([isAuthenticated, userData]) => {
+      if (userData) {
+        this.userData = userData;
+        this.username = userData.nickname;
+        this.picture = userData.picture;
+        this.email = userData.email;
+        this.name = userData.name;
+
+        if (this.isLoggedInRecently) {
+          this.authUserService.createUser(userData);
+          this.isLoggedInRecently = false; 
+        }
 
       }
     });
   }
-
-  ngOnInit(): void {
-    this.userDataSubject.subscribe(userData => {
-      this.authUserService.createUser(userData);
+  logIn() {
+    this.auth.loginWithPopup().subscribe(() => {
+      this.isLoggedInRecently = true;
     });
   }
+
+  // constructor(public auth: AuthService, private authUserService: AuthUserService) {
+  //   this.auth.idTokenClaims$.subscribe(user => {
+  //     if (user) {
+  //       this.auth.isAuthenticated$.subscribe(async isLogged => {
+  //         this.isLogged = isLogged;
+  //         if (isLogged && this.isLoggedInRecently) {
+  //           const userData = {
+  //             nickname: user.nickname,
+  //             picture: user.picture,
+  //             email: user.email,
+  //             name: user.name,
+  //             token: user.__raw
+  //           };
+  //           this.userDataSubject.next(userData); 
+  //           this.isLoggedInRecently = false; 
+  //         }
+  //       });
+  //       this.username = user.nickname || '';
+  //       this.picture = user.picture || '';
+
+  //     }
+  //   });
+  // }
+
+  // ngOnInit(): void {
+  //   this.userDataSubject.subscribe(userData => {
+  //     this.authUserService.createUser(userData);
+  //   });
+  // }
 
 
   get() {
@@ -69,11 +101,7 @@ export class NavBarComponent {
   delete() {
     localStorage.removeItem('user');
   }
-  logIn() {
-    this.auth.loginWithPopup().subscribe(() => {
-      this.isLoggedInRecently = true;
-    });
-  }
+
   logOut() {
     this.authUserService.logOut(this.auth);
     this.delete();

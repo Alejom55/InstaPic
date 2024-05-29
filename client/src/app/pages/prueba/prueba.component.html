@@ -19,8 +19,7 @@
     <label for="file">Seleccione su imagen</label>
   </form>
 </div>
-<div>
-    <h1>Display Word</h1>
-    <p>{{ word }}</p>
-  </div>
-
+<div *ngIf="userData">
+  <h1>Welcome, {{ userData.name }}</h1>
+  <img [src]="userData.picture" alt="{{ userData.name }}" />
+</div>
