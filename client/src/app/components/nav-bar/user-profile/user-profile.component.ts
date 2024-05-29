@@ -8,10 +8,12 @@ import { Component, Input } from '@angular/core';
   <div class="container">
     <div class="nav-user-info">
       <div class="nav-profile-pic">
+        <a href="/perfil">
         <img
           src={{picture}}
           alt="foto de perfil"
         />
+        </a>
       </div>
       <div class="nav-profile-info">
         <span class="span-nav-profile-username">{{username}}</span>
