@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="title">Subir Imagen</div>
+  <form [formGroup]="uploadForm" class="upload-form">
+    <label for="description" class="form-label">Descripción</label>
+    <textarea
+      id="description"
+      formControlName="description"
+      class="form-textarea"
+      placeholder="Ingrese la descripción"
+    ></textarea>
+    <div class="file-input-container">
+      <input
+        type="file"
+        id="file"
+        formControlName="fileTo"
+        (change)="onFileSelected($event)"
+        class="file-input"
+      />
+      <span class="file-input-label">Elegir Archivo</span>
+    </div>
+    @if (selectedImageSrc) {
+    <div class="image-preview">
+      <img
+        [src]="selectedImageSrc"
+        alt="Vista Previa de la Imagen"
+        class="preview-image"
+      />
+    </div>
+    }
+    <button
+      type="button"
+      class="submit-button"
+      (click)="uploadImage()"
+      [disabled]="!uploadForm.valid"
+    >
+      Subir
+    </button>
+  </form>
+</div>

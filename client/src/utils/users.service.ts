@@ -1,8 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from '../environments/environment';
-import { BehaviorSubject } from 'rxjs';
 import { AuthUserService } from './auth.service';
 @Injectable({
   providedIn: 'root'

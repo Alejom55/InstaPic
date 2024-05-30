@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UseGuards } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
-import { Post as PostEntity } from './entities/post.entity';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 
 @Controller('post')
@@ -9,7 +9,8 @@ export class PostController {
   constructor(private readonly postService: PostService) { }
 
   @Post('upload')
-  create(@Body() createPostDto: CreatePostDto): Promise<PostEntity> {
+  @UseGuards(AuthGuard)
+  create(@Body() createPostDto: CreatePostDto): Promise<void> {
     return this.postService.create(createPostDto);
   }
 

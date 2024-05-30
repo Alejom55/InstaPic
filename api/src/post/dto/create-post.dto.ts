@@ -11,6 +11,6 @@ export class CreatePostDto {
 
     @IsString()
     @IsNotEmpty()
-    email: string;
+    nickname: string;
 }
 

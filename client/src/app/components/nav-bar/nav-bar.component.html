@@ -2,11 +2,17 @@
   <div class="nav-current-user">
     @if(auth.isAuthenticated$ | async){
     <div class="nav-user">
-      <app-user-profile [username]="username" [picture]="picture" [followers]="acceptedFollowersCount"/>
-      <div class="create">
-        <i class="fi fi-sr-plus"></i>
-        <span class="upload">Subir una foto</span>
-      </div>
+      <app-user-profile
+        [username]="username"
+        [picture]="picture"
+        [followers]="acceptedFollowersCount"
+      />
+      <a routerLink="/upload">
+        <div class="create">
+          <i class="fi fi-sr-plus"></i>
+          <span class="upload">Subir una foto</span>
+        </div>
+      </a>
     </div>
     }@else {
     <button class="btn-logIn" (click)="logIn()">Iniciar sesión</button>
@@ -24,9 +30,9 @@
           </div>
         </a>
         @if(auth.isAuthenticated$ | async){
-          <div class="nav-search">
-            <i class="fi fi-sr-search"></i>
-          </div>
+        <div class="nav-search">
+          <i class="fi fi-sr-search"></i>
+        </div>
         <div class="nav-friends">
           <i class="fi fi-sr-users-alt"></i>
         </div>

@@ -14,12 +14,12 @@ export class PostService {
     private userRepository: Repository<User>,
   ) { }
 
-  async create(createPostDto: CreatePostDto): Promise<Post> {
-    const { description, uri_resource, email } = createPostDto;
+  async create(createPostDto: CreatePostDto): Promise<void> {
+    const { description, uri_resource, nickname } = createPostDto;
 
-    const user = await this.userRepository.findOne({ where: { email } });
+    const user = await this.userRepository.findOne({ where: { nickname } });
     if (!user) {
-      throw new NotFoundException(`User with email ${email} not found`);
+      throw new NotFoundException(`User with email ${nickname} not found`);
     }
 
     const post = this.postRepository.create({
@@ -29,7 +29,7 @@ export class PostService {
       user,
     });
 
-    return this.postRepository.save(post);
+    this.postRepository.save(post);
   }
 
   findAll() {

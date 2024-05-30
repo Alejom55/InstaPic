@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { authGuardLogged, authGuardNotLogged } from '../utils/guard/auth.guard';
-import { PruebaComponent } from './pages/prueba/prueba.component';
+import { UploadComponent } from './pages/upload/upload.component';
 import { perfilComponent } from './pages/perfil/perfil.component';
 
 export const routes: Routes = [
@@ -11,30 +11,15 @@ export const routes: Routes = [
         
     },
     {
-        path: 'prueba',
-        component: PruebaComponent,
+        path: 'upload',
+        component: UploadComponent,
         canActivate: [authGuardLogged]
     },
-    // {
-    //     path: 'perfil',
-    //     component: perfilComponent,
-    // },
+
     {
         path: ':id',
         component: perfilComponent,
         canActivate: [authGuardLogged]
     }
 
-    // {
-    //     path: 'home',
-    // },
-    // {
-    //     path: 'profile',
-    // },
-    // {
-    //     path: 'publication',
-    // },
-    // {
-    //     path: 'friends',
-    // },
 ];
