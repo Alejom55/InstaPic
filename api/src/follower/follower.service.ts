@@ -14,7 +14,7 @@ export class FollowerService {
     private readonly followerRepository: Repository<Follower>,
   ) { }
 
-  async checkIfUserFollows(checkFollowDto: CheckFollowDto): Promise<boolean> {
+  async checkIfUserFollows(checkFollowDto: CheckFollowDto): Promise<boolean | string> {
     const { loggedInUserNickname, targetUserNickname } = checkFollowDto;
     const loggedInUser = await this.userRepository.findOne({
       where: { nickname: loggedInUserNickname },
@@ -34,7 +34,7 @@ export class FollowerService {
     if (!follower) {
       return false
     } else {
-      return follower.state === 'Accepted';
+      return follower.state;
     }
   }
 
@@ -71,6 +71,37 @@ export class FollowerService {
     follower.user = targetUser;
     follower.userFollower = loggedInUser;
     await this.followerRepository.save(follower);
+  }
+  async unFollowUser(createFollowerDto: FollowUserDto): Promise<void> {
+    const { loggedInUserNickname, targetUserNickname } = createFollowerDto;
+
+    if (loggedInUserNickname === targetUserNickname) {
+      throw new BadRequestException('Cannot unfollow yourself');
+    }
+
+    const loggedInUser = await this.userRepository.findOne({
+      where: { nickname: loggedInUserNickname },
+    });
+    const targetUser = await this.userRepository.findOne({
+      where: { nickname: targetUserNickname },
+    });
+
+    if (!loggedInUser || !targetUser) {
+      throw new BadRequestException('User not found');
+    }
+
+    const existingFollower = await this.followerRepository.findOne({
+      where: {
+        user: { id: targetUser.id },
+        userFollower: { id: loggedInUser.id },
+      },
+    });
+
+    if (!existingFollower) {
+      throw new BadRequestException('You are not following this user');
+    }
+
+    await this.followerRepository.remove(existingFollower);
   }
 
   async acceptFollowRequest(followUserDto: FollowUserDto): Promise<void> {
