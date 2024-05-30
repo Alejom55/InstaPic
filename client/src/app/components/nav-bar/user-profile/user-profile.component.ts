@@ -25,7 +25,7 @@ import { RouterLink } from '@angular/router';
   styles: `
   .container{
     width: 20vw;
-    min-width: 300px;
+    min-width: 200px;
     max-width: 330px;
   }
   .nav-profile-pic {

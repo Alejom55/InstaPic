@@ -29,13 +29,41 @@ export class UsersService {
     }
   }
 
-  public async checkIfUserFollows(loggedInUser: any, targetUser: any): Promise<void> {
+  public async findUserByNicknamePrivate(nickname: string): Promise<any | null> {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${this.userData.token}`
+      }
+    };
     try {
-      // console.log(this.userData)
-      const response = await axios.post(`${this.apiURL}/follower/check-follow`, { loggedInUserNickname: loggedInUser, targetUserNickname: targetUser })
+      const response = await axios.get(`${this.apiURL}/auth/${nickname}/private`, config)
       return response.data
     } catch (e) {
       console.log(e)
     }
   }
+
+  public async checkIfUserFollows(loggedInUser: any, targetUser: any): Promise<boolean | string> {
+    try {
+      const response = await axios.post(`${this.apiURL}/follower/check-follow`, { loggedInUserNickname: loggedInUser, targetUserNickname: targetUser })
+      return response.data
+    } catch (e) {
+      console.log(e)
+      return false
+    }
+  }
+
+  public async followUser(loggedInUser: any, targetUser: any): Promise<void> {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${this.userData.token}`
+      }
+    };
+    try {
+      await axios.post(`${this.apiURL}/follower/follow-user`, { loggedInUserNickname: loggedInUser, targetUserNickname: targetUser }, config)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
 }

@@ -1,36 +1,56 @@
-<p>El ID del usuario es: {{ userNickname }}</p>
+<!-- <div *ngIf="loading">Cargando...</div> -->
 <div class="profile-header">
+  <div></div>
   <img src="{{ picture }}" alt="Profile Picture" class="profile-picture" />
   <div class="profile-info">
-    <h2>{{ username }}</h2>
-    <div class="profile-stats">
-      <div><span>{{posts.length}}</span> posts</div>
-      <div><span>{{followers.length}}</span> followers</div>
-      <div><span>{{following.length}}</span> following</div>
+    <div class="profile-top">
+      <h2>{{ username }}</h2>
+      @if(follow === 'Accepted'){
+      <button class="unfollow-button create">Dejar de seguir</button>
+      }@else if(follow === 'Pending') {
+      <button class="pending-button create">Pendiente</button>
+      }@else {
+      <button (click)="followUser()" class="follow-button create">
+        Seguir
+      </button>
+
+      }
     </div>
-    <div class="profile-bio">
-      <p>Bio goes here. A short description about the user.</p>
+
+    <div class="profile-stats">
+      @if (posts.length === 1) {
+      <div>
+        <span>{{ posts.length }}</span> publicación
+      </div>
+      }@else {
+      <div>
+        <span>{{ posts.length }}</span> publicaciones
+      </div>
+      } @if (followers.length === 1) {
+      <div>
+        <span>{{ followers.length }}</span> seguidor
+      </div>
+      }@else {
+      <div>
+        <span>{{ followers.length }}</span> seguidores
+      </div>
+      } @if (following.length) {
+      <div>
+        <span>{{ following.length }}</span> seguido
+      </div>
+      }@else {
+      <div>
+        <span>{{ following.length }}</span> seguidos
+      </div>
+      }
     </div>
   </div>
 </div>
 
 <div class="post-grid">
+  @for (item of posts; track $index) {
   <div class="post">
-    <img src="" alt="Post Image 1" />
+    <img src="{{ item.url }}" alt="{{ item.description }}" />
   </div>
-  <div class="post">
-    <img src="" alt="Post Image 2" />
-  </div>
-  <div class="post">
-    <img src="" alt="Post Image 3" />
-  </div>
-  <div class="post">
-    <img src="" alt="Post Image 4" />
-  </div>
-  <div class="post">
-    <img src="" alt="Post Image 5" />
-  </div>
-  <div class="post">
-    <img src="" alt="Post Image 6" />
-  </div>
+  }
 </div>
