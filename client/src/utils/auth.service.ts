@@ -48,9 +48,6 @@ export class AuthUserService {
     };
     try {
       await axios.post(`${this.apiURL}/auth`, userData, config)
-        .then(response => {
-          console.log(response);
-        })
         .catch(error => {
           console.error('Error al enviar la solicitud:', error);
         });

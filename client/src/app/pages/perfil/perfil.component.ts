@@ -66,8 +66,9 @@ export class perfilComponent {
         }
       });
     });
-
   }
+
+  
   followUser() {
     this.user.followUser(this.userData.nickname, this.userNickname);
     // this.follow = true;

@@ -1,9 +1,18 @@
 <div class="section-friend-div">
   <span class="section-span-friend-request">Solicitudes de amistad</span>
-  <span class="section-friend-seeAll">Ver todos</span>
+  @if (pendingFollowers.length > 0) {
+    <span class="section-friend-seeAll">Ver todos</span>
+  }
 </div>
+@if (pendingFollowers.length === 0) {
+  <span class="no-follows">No tienes solicitudes de amistad</span>
+}
 <div class="section-friend-request">
-  @for(friend of friends; track friend.id ){
-  <friend-profile [avatar]="friend.avatar" [username]="friend.username" />
+  @for(request of pendingFollowers; track request.id){
+  <friend-profile
+    [targetUserPicture]="request.senderPicture"
+    [targetUserNickname]="request.senderNickname"
+    [loggedInUserNickname]="loggedInUserNickname"
+  />
   }
 </div>

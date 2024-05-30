@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { FriendProfileComponent } from './friend-profile/friend-profile.component';
+import { ActivatedRoute } from '@angular/router';
+import { UsersService } from '../../../utils/users.service';
+import { AuthUserService } from '../../../utils/auth.service';
+import { FriendRequest } from '../../interface/follows';
 
 @Component({
   selector: 'section-friends-request',
@@ -42,4 +46,27 @@ export class FriendsRequestComponent {
   },
 
   ]
+
+
+  loggedInUserNickname: string = "";
+  userData: any;
+  loading: boolean = true;
+  pendingFollowers: Array<FriendRequest> = [];
+
+  constructor(private user: UsersService, private authUserService: AuthUserService) { }
+
+
+
+  ngOnInit(): void {
+    this.authUserService.userData$.subscribe(userData => {
+      this.userData = userData;
+      if (userData) {
+        this.user.getPendingFollowers(userData.nickname).then(requests => {
+          // console.log(requests)
+          this.pendingFollowers = requests;
+          this.loggedInUserNickname = userData.nickname;
+        });
+      }
+    });
+  }
 }

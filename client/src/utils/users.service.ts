@@ -14,7 +14,6 @@ export class UsersService {
 
     authUserService.userData$.subscribe(userData => {
       this.userData = userData;
-      // console.log(userData)
     });
   }
 
@@ -61,6 +60,57 @@ export class UsersService {
     };
     try {
       await axios.post(`${this.apiURL}/follower/follow-user`, { loggedInUserNickname: loggedInUser, targetUserNickname: targetUser }, config)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  public async unFollowUser(loggedInUser: string, targetUser: string): Promise<void> {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${this.userData.token}`
+      }
+    };
+    try {
+      await axios.post(`${this.apiURL}/follower/unfollow-user`, { loggedInUserNickname: loggedInUser, targetUserNickname: targetUser }, config)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  public async acceptFollowRequest(loggedInUser: string, targetUser: string): Promise<void> {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${this.userData.token}`
+      }
+    };
+    try {
+      await axios.post(`${this.apiURL}/follower/accept`, { loggedInUserNickname: loggedInUser, targetUserNickname: targetUser }, config)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  public async rejectFollowRequest(loggedInUser: string, targetUser: string): Promise<void> {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${this.userData.token}`
+      }
+    };
+    try {
+      await axios.post(`${this.apiURL}/follower/reject`, { loggedInUserNickname: loggedInUser, targetUserNickname: targetUser }, config)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  public async getPendingFollowers(nickname: string): Promise<any> {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${this.userData.token}`
+      }
+    };
+    try {
+      const response = await axios.get(`${this.apiURL}/follower/pending/${nickname}`, config)
+      return response.data
     } catch (e) {
       console.log(e)
     }

@@ -12,7 +12,8 @@ export const routes: Routes = [
     },
     {
         path: 'prueba',
-        component: PruebaComponent
+        component: PruebaComponent,
+        canActivate: [authGuardLogged]
     },
     // {
     //     path: 'perfil',
@@ -21,6 +22,7 @@ export const routes: Routes = [
     {
         path: ':id',
         component: perfilComponent,
+        canActivate: [authGuardLogged]
     }
 
     // {
