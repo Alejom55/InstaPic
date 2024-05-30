@@ -32,16 +32,21 @@ export class perfilComponent {
       this.route.paramMap.subscribe(params => {
         this.userNickname = params.get('id');
         if (this.userNickname) {
-          this.user.checkIfUserFollows(userData.nickname, this.userNickname).then(data => {
-            console.log(data);
-          });
-          
+          if (userData) {
+
+            this.user.checkIfUserFollows(userData.nickname, this.userNickname).then(data => {
+              console.log(userData.nickname)
+              console.log(this.userNickname)
+              // console.log(data);
+            });
+          }
+
           this.user.findUserByNickname(this.userNickname).then(data => {
             this.username = data.nickname;
             this.followers = data.followers;
             this.following = data.following;
             this.picture = data.picture;
-            console.log(data);
+            // console.log(data);
           });
         }
       });

@@ -3,14 +3,22 @@ import { AuthService } from '@auth0/auth0-angular';
 import axios from 'axios';
 import { environment } from '../environments/environment';
 import { BehaviorSubject } from 'rxjs';
-
+import { AuthUserService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
   private apiURL = environment.apiUrl
+  private userData: any;
+  constructor(private authUserService: AuthUserService) {
 
-  constructor() { }
+    authUserService.userData$.subscribe(userData => {
+      this.userData = userData;
+      // console.log(userData)
+    });
+  }
+
+
 
   public async findUserByNickname(nickname: string): Promise<any | null> {
     try {
@@ -23,7 +31,8 @@ export class UsersService {
 
   public async checkIfUserFollows(loggedInUser: any, targetUser: any): Promise<void> {
     try {
-      const response = await axios.post(`${this.apiURL}/follower/check-follow`, { loggedInUserNickname: loggedInUser, targetUserNickname:targetUser })
+      // console.log(this.userData)
+      const response = await axios.post(`${this.apiURL}/follower/check-follow`, { loggedInUserNickname: loggedInUser, targetUserNickname: targetUser })
       return response.data
     } catch (e) {
       console.log(e)

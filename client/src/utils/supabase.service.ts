@@ -12,13 +12,6 @@ export class SupabaseService {
   }
 
   async upload(file: File, folderName: string = 'base') {
-    // const { data, error } = await this.supabase
-    //   .storage
-    //   .createBucket('avatars', {
-    //     public: false,
-    //     allowedMimeTypes: ['image/png'],
-    //     fileSizeLimit: 1024
-    //   })
     const { error } = await this.supabase
       .storage
       .from('PostsBucketPublic')

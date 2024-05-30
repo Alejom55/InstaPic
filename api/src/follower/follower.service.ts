@@ -18,16 +18,24 @@ export class FollowerService {
     const { loggedInUserNickname, targetUserNickname } = checkFollowDto;
     const loggedInUser = await this.userRepository.findOne({
       where: { nickname: loggedInUserNickname },
-      relations: ['following'],
     });
-    console.log(loggedInUser)
     const targetUser = await this.userRepository.findOne({
       where: { nickname: targetUserNickname },
     });
     if (!loggedInUser || !targetUser) {
       throw new BadRequestException('User not found');
     }
-    return loggedInUser.following.some(follow => follow.userFollower.nickname === targetUserNickname);
+    const follower = await this.followerRepository.findOne({
+      where: {
+        user: { id: targetUser.id },
+        userFollower: { id: loggedInUser.id },
+      },
+    });
+    if (!follower) {
+      return false
+    } else {
+      return follower.state === 'Accepted';
+    }
   }
 
   async followUser(createFollowerDto: FollowUserDto): Promise<void> {
@@ -111,19 +119,5 @@ export class FollowerService {
     }
     follower.state = 'Rejected';
     await this.followerRepository.save(follower);
-  }
-
-
-
-  findAll() {
-    return `This action returns all follower`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} follower`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} follower`;
   }
 }
