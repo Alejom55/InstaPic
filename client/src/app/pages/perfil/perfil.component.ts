@@ -24,6 +24,7 @@ export class perfilComponent {
   picture: string = "";
   loading: boolean = true;
   follow: boolean | string = false;
+  Me: boolean = false;
   constructor(private route: ActivatedRoute, private user: UsersService, private authUserService: AuthUserService) { }
 
 
@@ -33,7 +34,10 @@ export class perfilComponent {
       this.userData = userData;
       this.route.paramMap.subscribe(params => {
         this.userNickname = params.get('id');
-        if (userData) {
+        if (this.userNickname === userData.nickname) {
+          this.Me = true;
+        }
+        if (userData && this.Me === false) {
           this.user.checkIfUserFollows(userData.nickname, this.userNickname).then(followData => {
             console.log(followData)
             if (this.userNickname) {
@@ -45,7 +49,6 @@ export class perfilComponent {
                   this.picture = findData.picture;
                   this.posts = findData.posts;
                   this.follow = followData;
-                  console.log(this.follow)
                   this.loading = false;
                   this.countAcceptedFollowers();
                 });
@@ -60,15 +63,40 @@ export class perfilComponent {
                   this.countAcceptedFollowers();
                 });
               }
+
             }
           });
 
+        }else{
+          if (this.userNickname) {
+            this.user.findUserByNicknamePrivate(this.userNickname).then(findData => {
+              console.log(findData)
+              this.username = findData.nickname;
+              this.followers = findData.followers;
+              this.following = findData.following;
+              this.picture = findData.picture;
+              this.posts = findData.posts;
+              // this.follow = true;
+              this.loading = false;
+              this.countAcceptedFollowers();
+            });
+          }
+          // this.user.findUserByNickname(this.userNickname).then(findData => {
+          //   this.username = findData.nickname;
+          //   this.followers = findData.followers;
+          //   this.following = findData.following;
+          //   this.picture = findData.picture;
+          //   this.follow = followData;
+          //   this.loading = false;
+          //   this.countAcceptedFollowers();
+          // });
+        
         }
       });
     });
   }
 
-  
+
   followUser() {
     this.user.followUser(this.userData.nickname, this.userNickname);
     // this.follow = true;

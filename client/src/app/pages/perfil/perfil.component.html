@@ -5,7 +5,7 @@
   <div class="profile-info">
     <div class="profile-top">
       <h2>{{ username }}</h2>
-      @if(follow === 'Accepted'){
+      @if (Me === false) { @if(follow === 'Accepted'){
       <button class="unfollow-button create">Dejar de seguir</button>
       }@else if(follow === 'Pending') {
       <button class="pending-button create">Pendiente</button>
@@ -14,7 +14,7 @@
         Seguir
       </button>
 
-      }
+      } }
     </div>
 
     <div class="profile-stats">
