@@ -64,18 +64,8 @@ export class PublicationsComponent {
 
 
   constructor() {
-    if (!localStorage.getItem('posts')) {
-      this.post();
-    }
-    // this.clear_localstorage();
+
   }
 
-  get() {
-    let posts = JSON.parse(localStorage.getItem('posts') || '{}');
-    return posts;
-  }
 
-  clear_localstorage() {
-    localStorage.clear();
-  }
 }

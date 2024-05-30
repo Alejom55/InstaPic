@@ -23,7 +23,7 @@ export class perfilComponent {
   following: any[] = [];
   picture: string = "";
   loading: boolean = true;
-  follow: boolean| string = false ;
+  follow: boolean | string = false;
   constructor(private route: ActivatedRoute, private user: UsersService, private authUserService: AuthUserService) { }
 
 
@@ -47,6 +47,7 @@ export class perfilComponent {
                   this.follow = followData;
                   console.log(this.follow)
                   this.loading = false;
+                  this.countAcceptedFollowers();
                 });
               } else {
                 this.user.findUserByNickname(this.userNickname).then(findData => {
@@ -56,6 +57,7 @@ export class perfilComponent {
                   this.picture = findData.picture;
                   this.follow = followData;
                   this.loading = false;
+                  this.countAcceptedFollowers();
                 });
               }
             }
@@ -69,6 +71,15 @@ export class perfilComponent {
   followUser() {
     this.user.followUser(this.userData.nickname, this.userNickname);
     // this.follow = true;
+  }
+
+  acceptedFollowersCount: number = 0;
+  countAcceptedFollowers(): void {
+    this.acceptedFollowersCount = this.user.countAcceptedFollowers(this.followers);
+  }
+  acceptedFollowingCount: number = 0;
+  countAcceptedFollowing(): void {
+    this.acceptedFollowingCount = this.user.countAcceptedFollowers(this.following);
   }
 
 

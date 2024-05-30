@@ -4,11 +4,13 @@ import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
 import { AuthUserService } from '../../../utils/auth.service';
 import { Subject, combineLatest, filter } from 'rxjs';
+import { UsersService } from '../../../utils/users.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [UserProfileComponent, CommonModule],
+  imports: [UserProfileComponent, CommonModule, RouterLink],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
@@ -20,10 +22,10 @@ export class NavBarComponent {
   picture = ""
   email = ""
   name = ""
+  followers: any[] = [];
 
   userData: any;
-
-  constructor(private authUserService: AuthUserService, public auth: AuthService) { }
+  constructor(private authUserService: AuthUserService, public auth: AuthService, private user: UsersService) { }
 
   ngOnInit(): void {
     combineLatest([
@@ -33,15 +35,21 @@ export class NavBarComponent {
       filter(([isAuthenticated, userData]) => isAuthenticated && !!userData)
     ).subscribe(([isAuthenticated, userData]) => {
       if (userData) {
+        this.user.findUserByNickname(userData.nickname).then(findData => {
+          this.username = findData.nickname;
+          this.followers = findData.followers;
+          this.picture = findData.picture;
+          this.email = findData.email;
+          this.name = findData.name;
+          this.countAcceptedFollowers();
+        });
+
         this.userData = userData;
-        this.username = userData.nickname;
-        this.picture = userData.picture;
-        this.email = userData.email;
-        this.name = userData.name;
+
 
         if (this.isLoggedInRecently) {
           this.authUserService.createUser(userData);
-          this.isLoggedInRecently = false; 
+          this.isLoggedInRecently = false;
         }
 
       }
@@ -53,10 +61,13 @@ export class NavBarComponent {
     });
   }
 
-
-
   logOut() {
     this.authUserService.logOut(this.auth);
   };
+
+  acceptedFollowersCount: number = 0;
+  countAcceptedFollowers(): void {
+    this.acceptedFollowersCount = this.user.countAcceptedFollowers(this.followers);
+  }
 
 }

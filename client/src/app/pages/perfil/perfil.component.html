@@ -26,21 +26,21 @@
       <div>
         <span>{{ posts.length }}</span> publicaciones
       </div>
-      } @if (followers.length === 1) {
+      } @if (acceptedFollowersCount === 1) {
       <div>
-        <span>{{ followers.length }}</span> seguidor
+        <span>{{ acceptedFollowersCount }}</span> seguidor
       </div>
       }@else {
       <div>
-        <span>{{ followers.length }}</span> seguidores
+        <span>{{ acceptedFollowersCount }}</span> seguidores
       </div>
-      } @if (following.length) {
+      } @if (acceptedFollowingCount === 1) {
       <div>
-        <span>{{ following.length }}</span> seguido
+        <span>{{ acceptedFollowingCount }}</span> seguido
       </div>
       }@else {
       <div>
-        <span>{{ following.length }}</span> seguidos
+        <span>{{ acceptedFollowingCount }}</span> seguidos
       </div>
       }
     </div>
@@ -50,7 +50,7 @@
 <div class="post-grid">
   @for (item of posts; track $index) {
   <div class="post">
-    <img src="{{ item.url }}" alt="{{ item.description }}" />
+    <img src="{{ item.uri_resource }}" alt="{{ item.description }}" />
   </div>
   }
 </div>

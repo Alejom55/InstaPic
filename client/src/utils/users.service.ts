@@ -66,4 +66,13 @@ export class UsersService {
     }
   }
 
+  public countAcceptedFollowers(followersArray: Array<any>): number {
+    return followersArray.filter(follower => follower.state === 'Accepted').length;
+  }
+  public countAcceptedFollowing(followingArray: Array<any>): number {
+    return followingArray.filter(follower => follower.state === 'Accepted').length;
+  }
+
+
+
 }

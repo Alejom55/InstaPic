@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { UsersService } from '../../../../utils/users.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,8 +18,10 @@ import { RouterLink } from '@angular/router';
         </div>
       </a>
       <div class="nav-profile-info">
-        <span class="span-nav-profile-username">{{username}}</span>
-        <span class="span-nav-profile-friends">Amigos: {{friends}}</span>
+      <a routerLink="/perfil" class="span-nav-profile-username">
+          {{username}}
+      </a>
+        <span class="span-nav-profile-friends">Seguidores: {{followers}}</span>
       </div>
     </div>
 </div>`,
@@ -53,7 +56,10 @@ import { RouterLink } from '@angular/router';
 
 .span-nav-profile-friends {
     color: #808080;
-
+}
+.span-nav-profile-username{
+  text-decoration: none;
+  color: inherit;
 }
 
 `
@@ -62,9 +68,8 @@ export class UserProfileComponent {
   @Input() username = '';
   @Input() friends = 0;
   @Input() picture = '';
-  // user = {
-  //   username: 'José Julián Zapata Arbeláez',
-  //   friends: 50,
-  //   avatar: 'assets/images/profile photo/603a8623163a5.jpeg'
-  // }
+  @Input() followers:number = 0;
+
+
+
 }

@@ -2,7 +2,7 @@
   <div class="nav-current-user">
     @if(auth.isAuthenticated$ | async){
     <div class="nav-user">
-      <app-user-profile [username]="username" [picture]="picture"/>
+      <app-user-profile [username]="username" [picture]="picture" [followers]="acceptedFollowersCount"/>
       <div class="create">
         <i class="fi fi-sr-plus"></i>
         <span class="upload">Subir una foto</span>
@@ -18,9 +18,11 @@
         <h1>InstaPic</h1>
       </div>
       <div class="nav-buttons">
-        <div class="nav-home">
-          <i class="fi fi-sr-home icono"></i>
-        </div>
+        <a routerLink="/">
+          <div class="nav-home">
+            <i class="fi fi-sr-home icono"></i>
+          </div>
+        </a>
         <div class="nav-search">
           <i class="fi fi-sr-search"></i>
         </div>
