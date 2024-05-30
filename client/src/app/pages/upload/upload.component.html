@@ -17,16 +17,16 @@
         class="file-input"
       />
       <span class="file-input-label">Elegir Archivo</span>
+      @if (selectedImageSrc) {
+      <div class="image-preview">
+        <img
+          [src]="selectedImageSrc"
+          alt="Vista Previa de la Imagen"
+          class="preview-image"
+        />
+      </div>
+      }
     </div>
-    @if (selectedImageSrc) {
-    <div class="image-preview">
-      <img
-        [src]="selectedImageSrc"
-        alt="Vista Previa de la Imagen"
-        class="preview-image"
-      />
-    </div>
-    }
     <button
       type="button"
       class="submit-button"
