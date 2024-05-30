@@ -27,6 +27,7 @@ export class PruebaComponent {
   ngOnInit(): void {
     this.authUserService.userData$.subscribe(userData => {
       this.userData = userData;
+      console.log(userData)
     });
   }
 

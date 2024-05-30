@@ -1,11 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, BadRequestException } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from './dto/auth.dto';
+import { CreateUserDto, UserPublicDto } from './dto/auth.dto';
 import { AuthGuard } from './guards/auth.guard';
+import { User } from './entities/user.entity';
 
-@Controller('auth') 
+@Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @UseGuards(AuthGuard)
   @Post()
@@ -19,9 +20,15 @@ export class AuthController {
     return this.authService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
+  @Get(':nickname')
+  findUserPublic(@Param('nickname') nickname: string): Promise<UserPublicDto | BadRequestException> {
+    return this.authService.findUserPublic(nickname);
+  }
+
+  @Get(':nickname/private')
+  @UseGuards(AuthGuard)
+  findUserAndPostsPrivate(@Param('nickname') nickname: string): Promise<User | BadRequestException> {
+    return this.authService.findUserAndPostsPrivate(nickname);
   }
 
   // @Patch(':id')
@@ -29,8 +36,8 @@ export class AuthController {
   //   return this.authService.update(+id, updateAuthDto);
   // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.authService.remove(+id);
+  // }
 }

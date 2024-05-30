@@ -53,58 +53,10 @@ export class NavBarComponent {
     });
   }
 
-  // constructor(public auth: AuthService, private authUserService: AuthUserService) {
-  //   this.auth.idTokenClaims$.subscribe(user => {
-  //     if (user) {
-  //       this.auth.isAuthenticated$.subscribe(async isLogged => {
-  //         this.isLogged = isLogged;
-  //         if (isLogged && this.isLoggedInRecently) {
-  //           const userData = {
-  //             nickname: user.nickname,
-  //             picture: user.picture,
-  //             email: user.email,
-  //             name: user.name,
-  //             token: user.__raw
-  //           };
-  //           this.userDataSubject.next(userData); 
-  //           this.isLoggedInRecently = false; 
-  //         }
-  //       });
-  //       this.username = user.nickname || '';
-  //       this.picture = user.picture || '';
 
-  //     }
-  //   });
-  // }
-
-  // ngOnInit(): void {
-  //   this.userDataSubject.subscribe(userData => {
-  //     this.authUserService.createUser(userData);
-  //   });
-  // }
-
-
-  get() {
-    let user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user;
-  }
-
-  post() {
-    let user = {
-      username: 'José Julián Zapata Arbeláez',
-      friends: 50,
-      picture: 'assets/images/profile photo/603a8623163a5.jpeg'
-    }
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-
-  delete() {
-    localStorage.removeItem('user');
-  }
 
   logOut() {
     this.authUserService.logOut(this.auth);
-    this.delete();
   };
 
 }

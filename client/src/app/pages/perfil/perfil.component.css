@@ -22,3 +22,52 @@
     overflow-y: auto;
 
 }
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #dbdbdb;
+    background-color: #fff;
+}
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+    border: 1px solid #dbdbdb;
+}
+.profile-info {
+    flex-grow: 1;
+}
+.profile-info h2 {
+    margin: 0;
+}
+.profile-stats {
+    display: flex;
+    margin-top: 10px;
+}
+.profile-stats div {
+    margin-right: 20px;
+}
+.profile-stats div span {
+    font-weight: bold;
+}
+.profile-bio {
+    margin-top: 10px;
+}
+.post-grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+.post {
+    width: 30%;
+    margin: 1.66%;
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+}
+.post img {
+    width: 100%;
+    display: block;
+}

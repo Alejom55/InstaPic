@@ -1,14 +1,9 @@
-<!-- <link
-  rel="stylesheet"
-  href="https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css"
-/> -->
-
 <nav class="nav">
   <div class="nav-current-user">
     @if(auth.isAuthenticated$ | async){
     <div class="nav-user">
-      <app-user-profile [username]="username" [friends]="get().friends" [picture]="picture"/>
-      <!-- <app-user-profile [username]="get().username" [friends]="get().friends" [avatar]="get().avatar"/> -->
+      <!-- <app-user-profile [username]="username" [friends]="get().friends" [picture]="picture"/> -->
+      <app-user-profile [username]="username" [picture]="picture"/>
       <div class="create">
         <i class="fi fi-sr-plus"></i>
         <span class="upload">Subir una foto</span>
@@ -16,7 +11,6 @@
     </div>
     }@else {
     <button class="btn-logIn" (click)="logIn()">Iniciar sesión</button>
-    <!-- <button class="btn-logIn" (click)="auth.loginWithPopup()">Iniciar sesión</button> -->
     }
   </div>
   <div class="nav-features">

@@ -1,20 +1,21 @@
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   template: `
   <div class="container">
     <div class="nav-user-info">
+      <a routerLink="/perfil">
       <div class="nav-profile-pic">
-        <a href="/perfil">
-        <img
-          src={{picture}}
-          alt="foto de perfil"
-        />
-        </a>
-      </div>
+          <img
+            src={{picture}}
+            alt="foto de perfil"
+          />
+        </div>
+      </a>
       <div class="nav-profile-info">
         <span class="span-nav-profile-username">{{username}}</span>
         <span class="span-nav-profile-friends">Amigos: {{friends}}</span>

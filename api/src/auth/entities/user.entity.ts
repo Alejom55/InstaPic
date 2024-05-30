@@ -48,6 +48,4 @@ export class User {
     @OneToMany(() => Follower, follower => follower.userFollower)
     following: Follower[];
 
-
-
 }

@@ -14,8 +14,12 @@ export const routes: Routes = [
         path: 'prueba',
         component: PruebaComponent
     },
+    // {
+    //     path: 'perfil',
+    //     component: perfilComponent,
+    // },
     {
-        path: 'perfil',
+        path: ':id',
         component: perfilComponent,
     }
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { AuthUserService } from '../utils/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,5 +13,25 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 })
 export class AppComponent {
   title = 'InstaPic';
+  isLogged = false;
+  userData: any;
+
+
+  constructor(private authUserService: AuthUserService) {
+
+  }
+
+  ngOnInit(): void {
+    this.authUserService.userData$.subscribe(userData => {
+      this.userData = userData;
+      if (userData !== null) {
+        this.isLogged = true;
+      }
+    });
+  }
+
+
+
+
 
 }

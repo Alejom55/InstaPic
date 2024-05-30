@@ -1,38 +1,24 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/auth.dto';
+import { CreateUserDto, UserPublicDto } from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
-
+  findOneByNickname(nickname: string) {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) { }
 
-
-  async create2(CreateUserDto: CreateUserDto) {
-    try {
-
-      const userData = CreateUserDto;
-      const newUser = this.userRepository.create(userData);
-      await this.userRepository.save(newUser);
-      return newUser;
-    } catch (err) {
-      if (err.code === '23505') {
-        throw new BadRequestException('Email already exists')
-      }
-      console.log(err)
-    }
-  }
   async create(createUserDto: CreateUserDto) {
     const existingUser = await this.userRepository.findOne({ where: { email: createUserDto.email } });
     if (existingUser) {
-      // throw new BadRequestException('Email already exists');
-      return 
+      return
     }
     const newUser = this.userRepository.create(createUserDto);
     await this.userRepository.save(newUser);
@@ -48,11 +34,24 @@ export class AuthService {
     return `This action returns a #${id} auth`;
   }
 
-  // update(id: number, updateAuthDto: UpdateAuthDto) {
-  //   return `This action updates a #${id} auth`;
-  // }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  async findUserPublic(nickname: string): Promise<UserPublicDto | BadRequestException> {
+    const existingUser = await this.userRepository.findOne({ where: { nickname: nickname }, relations: ['followers', 'following'], });
+    if (!existingUser) {
+      return new BadRequestException('User not found');
+    }
+    const { id, ...userPublic } = existingUser;
+    return userPublic;
+  }
+  async findUserAndPostsPrivate(nickname: string): Promise<User | BadRequestException> {
+    const existingUser = await this.userRepository.findOne({ where: { nickname: nickname }, relations: ['posts', 'posts.comments', 'followers', 'following'], });
+    if (!existingUser) {
+      return new BadRequestException('User not found');
+    }
+    return existingUser;
   }
 }
+
+// update(id: number, updateAuthDto: UpdateAuthDto) {
+//   return `This action updates a #${id} auth`;
+// }
+

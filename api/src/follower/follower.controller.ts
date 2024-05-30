@@ -1,34 +1,36 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
 import { FollowerService } from './follower.service';
-import { CreateFollowerDto } from './dto/create-follower.dto';
-import { UpdateFollowerDto } from './dto/update-follower.dto';
+import { CheckFollowDto, FollowUserDto } from './dto/follower.dto';
 
 @Controller('follower')
 export class FollowerController {
-  constructor(private readonly followerService: FollowerService) {}
+  constructor(private readonly followerService: FollowerService) { }
 
-  @Post()
-  create(@Body() createFollowerDto: CreateFollowerDto) {
-    return this.followerService.create(createFollowerDto);
+  @Post('check-follow')
+  async checkIfUserFollows(@Body() checkFollowDto: CheckFollowDto): Promise<boolean> {
+    return this.followerService.checkIfUserFollows(checkFollowDto);
   }
 
-  @Get()
-  findAll() {
-    return this.followerService.findAll();
+  @Post('follow-user')
+  async followUser(@Body() followUser: FollowUserDto): Promise<void> {
+    return this.followerService.followUser(followUser);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.followerService.findOne(+id);
+  @Post('accept')
+  async acceptFollowRequest(@Body() followUserDto: FollowUserDto): Promise<void> {
+    try {
+      await this.followerService.acceptFollowRequest(followUserDto);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFollowerDto: UpdateFollowerDto) {
-    return this.followerService.update(+id, updateFollowerDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.followerService.remove(+id);
+  @Post('reject')
+  async rejectFollowRequest(@Body() followUserDto: FollowUserDto): Promise<void> {
+    try {
+      await this.followerService.rejectFollowRequest(followUserDto);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }
