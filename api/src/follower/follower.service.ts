@@ -32,6 +32,9 @@ export class FollowerService {
 
   async followUser(createFollowerDto: FollowUserDto): Promise<void> {
     const { loggedInUserNickname, targetUserNickname } = createFollowerDto;
+    if (loggedInUserNickname === targetUserNickname) {
+      throw new BadRequestException('Cannot follow yourself');
+    }
 
     const loggedInUser = await this.userRepository.findOne({
       where: { nickname: loggedInUserNickname },
