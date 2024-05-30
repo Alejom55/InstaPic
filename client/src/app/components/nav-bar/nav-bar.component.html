@@ -30,7 +30,7 @@
           </div>
         </a>
         @if(auth.isAuthenticated$ | async){
-        <div class="nav-search">
+        <div class="nav-search" (click)="hola()">
           <i class="fi fi-sr-search"></i>
         </div>
         <div class="nav-friends">

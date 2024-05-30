@@ -39,7 +39,6 @@ export class perfilComponent {
         }
         if (userData && this.Me === false) {
           this.user.checkIfUserFollows(userData.nickname, this.userNickname).then(followData => {
-            console.log(followData)
             if (this.userNickname) {
               if (followData === 'Accepted') {
                 this.user.findUserByNicknamePrivate(this.userNickname).then(findData => {
@@ -70,27 +69,16 @@ export class perfilComponent {
         }else{
           if (this.userNickname) {
             this.user.findUserByNicknamePrivate(this.userNickname).then(findData => {
-              console.log(findData)
               this.username = findData.nickname;
               this.followers = findData.followers;
               this.following = findData.following;
               this.picture = findData.picture;
               this.posts = findData.posts;
-              // this.follow = true;
               this.loading = false;
               this.countAcceptedFollowers();
             });
           }
-          // this.user.findUserByNickname(this.userNickname).then(findData => {
-          //   this.username = findData.nickname;
-          //   this.followers = findData.followers;
-          //   this.following = findData.following;
-          //   this.picture = findData.picture;
-          //   this.follow = followData;
-          //   this.loading = false;
-          //   this.countAcceptedFollowers();
-          // });
-        
+  
         }
       });
     });
@@ -99,7 +87,6 @@ export class perfilComponent {
 
   followUser() {
     this.user.followUser(this.userData.nickname, this.userNickname);
-    // this.follow = true;
   }
 
   acceptedFollowersCount: number = 0;

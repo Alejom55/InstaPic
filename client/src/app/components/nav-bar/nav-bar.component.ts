@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AuthUserService } from '../../../utils/auth.service';
 import { Subject, combineLatest, filter } from 'rxjs';
 import { UsersService } from '../../../utils/users.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -25,7 +25,7 @@ export class NavBarComponent {
   followers: any[] = [];
 
   userData: any;
-  constructor(private authUserService: AuthUserService, public auth: AuthService, private user: UsersService) { }
+  constructor(private authUserService: AuthUserService, public auth: AuthService, private user: UsersService,private router: Router) { }
 
   ngOnInit(): void {
     combineLatest([
@@ -68,6 +68,12 @@ export class NavBarComponent {
   acceptedFollowersCount: number = 0;
   countAcceptedFollowers(): void {
     this.acceptedFollowersCount = this.user.countAcceptedFollowers(this.followers);
+  }
+
+  
+  hola() {
+    const ruta = window.prompt("Ingrese la ruta:");
+    this.router.navigate([ruta]);
   }
 
 }

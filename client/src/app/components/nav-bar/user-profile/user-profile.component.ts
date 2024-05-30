@@ -9,7 +9,7 @@ import { UsersService } from '../../../../utils/users.service';
   template: `
   <div class="container">
     <div class="nav-user-info">
-      <a routerLink="/perfil">
+      <a routerLink="/{{username}}">
       <div class="nav-profile-pic">
           <img
             src={{picture}}
@@ -18,7 +18,7 @@ import { UsersService } from '../../../../utils/users.service';
         </div>
       </a>
       <div class="nav-profile-info">
-      <a routerLink="/perfil" class="span-nav-profile-username">
+      <a routerLink="/{{username}}" class="span-nav-profile-username">
           {{username}}
       </a>
         <span class="span-nav-profile-friends">Seguidores: {{followers}}</span>
