@@ -1,6 +1,10 @@
-<!-- <div *ngIf="loading">Cargando...</div> -->
+@if (notFound) { 
+    <div class="not-found">
+        <h1>Usuario no encontrado</h1>
+    </div>
+}@else{
+
 <div class="profile-header">
-  <div></div>
   <img src="{{ picture }}" alt="Profile Picture" class="profile-picture" />
   <div class="profile-info">
     <div class="profile-top">
@@ -54,3 +58,4 @@
   </div>
   }
 </div>
+}

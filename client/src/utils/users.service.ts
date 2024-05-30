@@ -45,7 +45,6 @@ export class UsersService {
       const response = await axios.post(`${this.apiURL}/follower/check-follow`, { loggedInUserNickname: loggedInUser, targetUserNickname: targetUser })
       return response.data
     } catch (e) {
-      console.log(e)
       return false
     }
   }

@@ -25,6 +25,7 @@ export class perfilComponent {
   loading: boolean = true;
   follow: boolean | string = false;
   Me: boolean = false;
+  notFound: boolean = false;
   constructor(private route: ActivatedRoute, private user: UsersService, private authUserService: AuthUserService) { }
 
 
@@ -38,35 +39,50 @@ export class perfilComponent {
           this.Me = true;
         }
         if (userData && this.Me === false) {
-          this.user.checkIfUserFollows(userData.nickname, this.userNickname).then(followData => {
-            if (this.userNickname) {
-              if (followData === 'Accepted') {
-                this.user.findUserByNicknamePrivate(this.userNickname).then(findData => {
-                  this.username = findData.nickname;
-                  this.followers = findData.followers;
-                  this.following = findData.following;
-                  this.picture = findData.picture;
-                  this.posts = findData.posts;
-                  this.follow = followData;
-                  this.loading = false;
-                  this.countAcceptedFollowers();
-                });
-              } else {
-                this.user.findUserByNickname(this.userNickname).then(findData => {
-                  this.username = findData.nickname;
-                  this.followers = findData.followers;
-                  this.following = findData.following;
-                  this.picture = findData.picture;
-                  this.follow = followData;
-                  this.loading = false;
-                  this.countAcceptedFollowers();
-                });
+          this.user.checkIfUserFollows(userData.nickname, this.userNickname)
+            .then(followData => {
+              if (this.userNickname) {
+                if (followData === 'Accepted') {
+                  this.user.findUserByNicknamePrivate(this.userNickname)
+                    .then(findData => {
+                      this.username = findData.nickname;
+                      this.followers = findData.followers;
+                      this.following = findData.following;
+                      this.picture = findData.picture;
+                      this.posts = findData.posts;
+                      this.follow = followData;
+                      this.loading = false;
+                      this.countAcceptedFollowers();
+                      this.notFound = false;
+                    })
+                    .catch(error => {
+                      console.log('Error en findUserByNicknamePrivate:', error);
+                    });
+                } else {
+                  this.user.findUserByNickname(this.userNickname)
+                    .then(findData => {
+                      this.username = findData.nickname;
+                      this.followers = findData.followers;
+                      this.following = findData.following;
+                      this.picture = findData.picture;
+                      this.follow = followData;
+                      this.loading = false;
+                      this.countAcceptedFollowers();
+                      this.notFound = false;
+                    })
+                    .catch(error => {
+                      console.log('Error en findUserByNickname:', error);
+                      this.notFound = true;
+                    });
+                }
               }
+            })
+            .catch(error => {
+              this.notFound = true;
+              console.log('Error en checkIfUserFollows:', error);
+            });
 
-            }
-          });
-
-        }else{
+        } else {
           if (this.userNickname) {
             this.user.findUserByNicknamePrivate(this.userNickname).then(findData => {
               this.username = findData.nickname;
@@ -76,9 +92,10 @@ export class perfilComponent {
               this.posts = findData.posts;
               this.loading = false;
               this.countAcceptedFollowers();
+              this.notFound = false;
             });
           }
-  
+
         }
       });
     });

@@ -72,7 +72,7 @@ export class NavBarComponent {
 
   
   hola() {
-    const ruta = window.prompt("Ingrese la ruta:");
+    const ruta = window.prompt("Ingrese el usuario:");
     this.router.navigate([ruta]);
   }
 
