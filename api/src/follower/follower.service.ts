@@ -28,7 +28,7 @@ export class FollowerService {
     const follower = await this.followerRepository.findOne({
       where: {
         user: { id: targetUser.id },
-        userFollower: { id: loggedInUser.id },
+        user_follower: { id: loggedInUser.id },
       },
     });
     if (!follower) {
@@ -58,7 +58,7 @@ export class FollowerService {
     const existingFollower = await this.followerRepository.findOne({
       where: {
         user: { id: targetUser.id },
-        userFollower: { id: loggedInUser.id },
+        user_follower: { id: loggedInUser.id },
       },
     });
     if (existingFollower) {
@@ -69,7 +69,7 @@ export class FollowerService {
     follower.request_date = new Date();
     follower.request_update_date = new Date();
     follower.user = targetUser;
-    follower.userFollower = loggedInUser;
+    follower.user_follower = loggedInUser;
     await this.followerRepository.save(follower);
   }
   async unFollowUser(createFollowerDto: FollowUserDto): Promise<void> {
@@ -93,7 +93,7 @@ export class FollowerService {
     const existingFollower = await this.followerRepository.findOne({
       where: {
         user: { id: targetUser.id },
-        userFollower: { id: loggedInUser.id },
+        user_follower: { id: loggedInUser.id },
       },
     });
 
@@ -118,7 +118,7 @@ export class FollowerService {
     const follower = await this.followerRepository.findOne({
       where: {
         user: { id: loggedInUser.id },
-        userFollower: { id: targetUser.id },
+        user_follower: { id: targetUser.id },
       },
     });
     if (!follower) {
@@ -142,7 +142,7 @@ export class FollowerService {
     const follower = await this.followerRepository.findOne({
       where: {
         user: { id: loggedInUser.id },
-        userFollower: { id: targetUser.id },
+        user_follower: { id: targetUser.id },
       },
     });
     if (!follower) {
@@ -150,5 +150,22 @@ export class FollowerService {
     }
     follower.state = 'Rejected';
     await this.followerRepository.save(follower);
+  }
+  async getPendingFollowers(nickname: string): Promise<any[]> {
+    const followers = await this.followerRepository.find({
+      where: {
+        state: 'Pending',
+        user: { nickname: nickname },
+      },
+      relations: ['user', 'user_follower'], 
+    });
+
+    return followers.map(follower => ({
+      id: follower.id,
+      state: follower.state,
+      request_date: follower.request_date,
+      senderNickname: follower.user_follower.nickname,
+      senderPicture: follower.user_follower.picture, 
+    }));
   }
 }

@@ -45,7 +45,7 @@ export class User {
     @OneToMany(() => Follower, follower => follower.user)
     followers: Follower[];
   
-    @OneToMany(() => Follower, follower => follower.userFollower)
+    @OneToMany(() => Follower, follower => follower.user_follower)
     following: Follower[];
 
 }

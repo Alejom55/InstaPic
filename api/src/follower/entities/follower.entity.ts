@@ -20,5 +20,5 @@ export class Follower {
   
     @ManyToOne(() => User, user => user.following, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'user_follower_id' })
-    userFollower: User;
+    user_follower: User;
 }

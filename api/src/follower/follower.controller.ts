@@ -43,4 +43,10 @@ export class FollowerController {
       throw new BadRequestException(error.message);
     }
   }
+
+  @Get('pending/:nickname')
+  @UseGuards(AuthGuard)
+  async getPendingFollowers(@Param('nickname') nickname: string) {
+    return this.followerService.getPendingFollowers(nickname);
+  }
 }
