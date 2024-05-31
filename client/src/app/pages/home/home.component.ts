@@ -3,6 +3,8 @@ import { FriendsRequestComponent } from '../../components/friends-request/friend
 import { PublicationsComponent } from '../../components/publications/publications.component';
 import { PublicationComponent } from '../../components/publications/publication/publication.component';
 import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
+import { UsersService } from '../../../utils/users.service';
+import { AuthUserService } from '../../../utils/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -12,13 +14,20 @@ import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  isLogged = false;
-  message: string = '';
+  userData: any;
+
+  constructor(private user: UsersService, private authUserService: AuthUserService) { }
 
 
-  getLogged(logged: boolean) {
-    this.isLogged = logged;
+  ngOnInit(): void {
+    this.getUserData()
   }
-  constructor() { }
+
+  getUserData() {
+    this.authUserService.userData$.subscribe(userData => {
+      this.userData = userData;
+      console.log(this.userData);
+    });
+  }
 
 }

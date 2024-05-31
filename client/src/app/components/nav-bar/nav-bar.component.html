@@ -7,12 +7,10 @@
         [picture]="picture"
         [followers]="acceptedFollowersCount"
       />
-      <a routerLink="/upload">
-        <div class="create">
+        <div class="create" routerLink="/upload">
           <i class="fi fi-sr-plus"></i>
           <span class="upload">Subir una foto</span>
         </div>
-      </a>
     </div>
     }@else {
     <button class="btn-logIn" (click)="logIn()">Iniciar sesión</button>

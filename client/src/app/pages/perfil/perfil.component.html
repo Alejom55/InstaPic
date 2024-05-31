@@ -1,7 +1,7 @@
-@if (notFound) { 
-    <div class="not-found">
-        <h1>Usuario no encontrado</h1>
-    </div>
+@if(loading){
+<app-loading></app-loading>
+} @if (notFound) {
+<app-not-found></app-not-found>
 }@else{
 
 <div class="profile-header">
@@ -50,7 +50,12 @@
     </div>
   </div>
 </div>
-
+@if (follow === 'Reject' || follow === 'Pending' || follow === false && Me === false) {
+<div class="locked-content">
+  <i class="fi fi-sr-lock lock-icon"></i>
+  <p>Para ver las publicaciones tienes que seguir al usuario.</p>
+</div>
+}@else {
 <div class="post-grid">
   @for (item of posts; track $index) {
   <div class="post">
@@ -58,4 +63,4 @@
   </div>
   }
 </div>
-}
+} }

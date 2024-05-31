@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { UsersService } from '../../../../utils/users.service';
 
 @Component({
   selector: 'app-user-profile',

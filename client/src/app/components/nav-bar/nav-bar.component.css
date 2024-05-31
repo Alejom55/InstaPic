@@ -3,7 +3,9 @@
     align-items: center;
     padding: 0rem 2rem;
     background-color: var(--bg-color);
-    height: 76px;
+    min-height: 70px;
+    height: 9vh;
+
     justify-content: space-between;
     /* Esto colocará los elementos a los extremos del nav */
     align-items: center;

@@ -6,11 +6,13 @@ import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../utils/users.service';
 import { AuthUserService } from '../../../utils/auth.service';
+import { NotFoundComponent } from '../../components/not-found/not-found.component';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavBarComponent, FriendsRequestComponent, PublicationsComponent, PublicationComponent],
+  imports: [NavBarComponent, FriendsRequestComponent, PublicationsComponent, PublicationComponent, NotFoundComponent, LoadingComponent],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.css'
 })
@@ -39,71 +41,90 @@ export class perfilComponent {
           this.Me = true;
         }
         if (userData && this.Me === false) {
-          this.user.checkIfUserFollows(userData.nickname, this.userNickname)
-            .then(followData => {
-              if (this.userNickname) {
-                if (followData === 'Accepted') {
-                  this.user.findUserByNicknamePrivate(this.userNickname)
-                    .then(findData => {
-                      this.username = findData.nickname;
-                      this.followers = findData.followers;
-                      this.following = findData.following;
-                      this.picture = findData.picture;
-                      this.posts = findData.posts;
-                      this.follow = followData;
-                      this.loading = false;
-                      this.countAcceptedFollowers();
-                      this.notFound = false;
-                    })
-                    .catch(error => {
-                      console.log('Error en findUserByNicknamePrivate:', error);
-                    });
-                } else {
-                  this.user.findUserByNickname(this.userNickname)
-                    .then(findData => {
-                      this.username = findData.nickname;
-                      this.followers = findData.followers;
-                      this.following = findData.following;
-                      this.picture = findData.picture;
-                      this.follow = followData;
-                      this.loading = false;
-                      this.countAcceptedFollowers();
-                      this.notFound = false;
-                    })
-                    .catch(error => {
-                      console.log('Error en findUserByNickname:', error);
-                      this.notFound = true;
-                    });
-                }
-              }
-            })
-            .catch(error => {
-              this.notFound = true;
-              console.log('Error en checkIfUserFollows:', error);
-            });
+          if (this.userNickname) {
+            this.checkIfUserFollows(userData, this.userNickname)
+          }
 
         } else {
           if (this.userNickname) {
-            this.user.findUserByNicknamePrivate(this.userNickname).then(findData => {
-              this.username = findData.nickname;
-              this.followers = findData.followers;
-              this.following = findData.following;
-              this.picture = findData.picture;
-              this.posts = findData.posts;
-              this.loading = false;
-              this.countAcceptedFollowers();
-              this.notFound = false;
-            });
+            this.findUserByNicknamePrivate(this.userNickname);
           }
 
         }
       });
     });
   }
+  checkIfUserFollows(userData: any, userNickname: string) {
+    this.user.checkIfUserFollows(userData.nickname, userNickname)
+      .then(followData => {
+        this.follow = followData;
+      })
+      .catch(error => {
+        this.notFound = true;
+        console.log('Error en checkIfUserFollows:', error);
+      });
+    if (this.userNickname) {
+      if (this.follow === 'Accepted') {
+        this.findUserByNicknamePrivate(this.userNickname, this.follow);
+
+      } else {
+        this.findUserByNickname(this.userNickname, this.follow);
+      }
+    }
+  }
+  updateFollowers() { }
+
+  findUserByNickname(userNickname: string, followData: boolean | string = false) {
+    this.user.findUserByNickname(userNickname)
+      .then(findData => {
+        this.username = findData.nickname;
+        this.followers = findData.followers;
+        this.following = findData.following;
+        this.picture = findData.picture;
+        this.follow = followData;
+        this.loading = false;
+        this.countAcceptedFollowers();
+        this.countAcceptedFollowing();
+        this.notFound = false;
+      })
+      .catch(error => {
+        console.log('Error en findUserByNickname:', error);
+        this.notFound = true;
+        this.loading = false;
+      });
+  }
+
+
+  findUserByNicknamePrivate(userNickname: string, followData: boolean | string = false) {
+    this.user.findUserByNicknamePrivate(userNickname)
+      .then(findData => {
+        this.username = findData.nickname;
+        this.followers = findData.followers;
+        this.following = findData.following;
+        this.picture = findData.picture;
+        this.posts = findData.posts;
+        this.follow = followData;
+        this.loading = false;
+        this.countAcceptedFollowers();
+        this.countAcceptedFollowing();
+        this.notFound = false;
+      })
+      .catch(error => {
+        console.log('Error en findUserByNicknamePrivate:', error);
+      });
+  }
 
 
   followUser() {
-    this.user.followUser(this.userData.nickname, this.userNickname);
+    this.user.followUser(this.userData.nickname, this.userNickname)
+      .then(() => {
+        if (this.userNickname) {
+          this.checkIfUserFollows(this.userData, this.userNickname);
+        }
+      })
+      .catch(error => {
+        console.log('Error en followUser:', error);
+      });
   }
 
   acceptedFollowersCount: number = 0;
@@ -112,7 +133,8 @@ export class perfilComponent {
   }
   acceptedFollowingCount: number = 0;
   countAcceptedFollowing(): void {
-    this.acceptedFollowingCount = this.user.countAcceptedFollowers(this.following);
+    this.acceptedFollowingCount = this.user.countAcceptedFollowing(this.following);
+    console.log(this.acceptedFollowingCount);
   }
 
 

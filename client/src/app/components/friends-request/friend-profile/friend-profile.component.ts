@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { FriendRequest } from '../../../interface/follows';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UsersService } from '../../../../utils/users.service';
 
 @Component({
@@ -26,13 +25,16 @@ export class FriendProfileComponent {
   @Input() targetUserNickname = ''
   @Input() targetUserPicture = ''
   @Input() loggedInUserNickname = ''
+  @Output() clicked = new EventEmitter<boolean>()
 
   constructor(private user: UsersService) { }
   acceptFollowRequest() {
     this.user.acceptFollowRequest(this.loggedInUserNickname, this.targetUserNickname)
+    this.clicked.emit(true)
   }
   rejectFollowRequest() {
     this.user.rejectFollowRequest(this.loggedInUserNickname, this.targetUserNickname)
+    this.clicked.emit(true)
   }
 
 }

@@ -27,7 +27,8 @@
 .profile-header {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centra horizontalmente */
+    justify-content: center;
+    /* Centra horizontalmente */
     padding: 20px;
     border-bottom: 1px solid #dbdbdb;
     background-color: #fff;
@@ -130,7 +131,29 @@
     background-color: var(--gray-color);
 }
 
-.pending-button{
-    background-color: #0095f6;
+.pending-button {
+    background-color: var(--blue-color);
 }
+.pending-button:hover {
+    background-color: var(--blue-color);
+}
+
+.locked-content {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #555;
+  }
+  
+  .lock-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjM2IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIzNiIgZGF0YS1oYXJuZXNzPSJ0cnVlIiBjbGFzcz0iaGFybmVzcyBfaWNvbiBfaWNvbi1sb2NrX2hhcm5lc3MiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0ibG9jayIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gPHBhdGggZD0iTTIwIDkuOThWMjRoLTE2VjkuOThoLTJ2LTEuODg5YzAtMy4wNzEgMi4zODktNS41NjEgNS42LTMuODQ2IDIuMDIxLTIuMjMxIDQuNjEtMi4zNDcgNi4zNjkgMS40OTcuNDgxIDUuNjg4LS4xMDggNS42ODggMy4zOTF2MS44ODloLTJ6TTExIDRjLTEuODMgMC0zIDEuMzYtMyAzLjA5MlY5LjhIMTNWNy4wOTJDMTMgNS4zNiAxMi4xMyA0IDExIDR6bTEuNSA1VjkuOThIMTQuOTlWNi4zNDRhMS41IDEuNSAwIDAgMC0zIDBWNnptMS0xMi40NS4wMSAwIDAgMS0uMDEgMCAwIC4wMDF6Ii8+IDwvc3ZnPjog');
+    background-size: cover;
+  }
 
