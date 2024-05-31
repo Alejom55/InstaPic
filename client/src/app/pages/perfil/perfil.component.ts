@@ -134,7 +134,6 @@ export class perfilComponent {
   acceptedFollowingCount: number = 0;
   countAcceptedFollowing(): void {
     this.acceptedFollowingCount = this.user.countAcceptedFollowing(this.following);
-    console.log(this.acceptedFollowingCount);
   }
 
 

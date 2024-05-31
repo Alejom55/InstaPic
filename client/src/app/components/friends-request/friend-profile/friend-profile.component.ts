@@ -7,6 +7,7 @@ import { UsersService } from '../../../../utils/users.service';
   imports: [],
   template: `
   <div class="section-user-info">
+   <button class="btn-close" (click)="clicked.emit(true)">X</button>
   <div class="section-profile-pic">
     <img src="{{ targetUserPicture }}" alt="foto de perfil" />
   </div>
