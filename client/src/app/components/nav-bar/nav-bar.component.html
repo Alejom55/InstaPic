@@ -7,10 +7,10 @@
         [picture]="picture"
         [followers]="acceptedFollowersCount"
       />
-        <div class="create" routerLink="/upload">
-          <i class="fi fi-sr-plus"></i>
-          <span class="upload">Subir una foto</span>
-        </div>
+      <div class="create" routerLink="/upload">
+        <i class="fi fi-sr-plus"></i>
+        <span class="upload">Subir una foto</span>
+      </div>
     </div>
     }@else {
     <button class="btn-logIn" (click)="logIn()">Iniciar sesión</button>
@@ -22,11 +22,10 @@
         <h1>InstaPic</h1>
       </div>
       <div class="nav-buttons">
-        <a routerLink="/">
-          <div class="nav-home">
-            <i class="fi fi-sr-home icono"></i>
-          </div>
-        </a>
+        <div class="nav-home" routerLink="/">
+          <i class="fi fi-sr-home icono"></i>
+        </div>
+
         @if(auth.isAuthenticated$ | async){
         <div class="nav-search" (click)="hola()">
           <i class="fi fi-sr-search"></i>

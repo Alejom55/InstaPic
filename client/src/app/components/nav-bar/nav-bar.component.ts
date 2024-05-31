@@ -15,7 +15,6 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-  private userDataSubject = new Subject<any>();
   private isLoggedInRecently = false;
   @Input() isLogged = false;
   username = ""

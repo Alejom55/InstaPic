@@ -15,6 +15,7 @@ import { AuthUserService } from '../../../utils/auth.service';
 })
 export class HomeComponent {
   userData: any;
+  logged = false;
 
   constructor(private user: UsersService, private authUserService: AuthUserService) { }
 
@@ -26,6 +27,7 @@ export class HomeComponent {
   getUserData() {
     this.authUserService.userData$.subscribe(userData => {
       this.userData = userData;
+      this.logged = true;
       console.log(this.userData);
     });
   }
