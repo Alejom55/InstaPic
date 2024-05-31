@@ -60,6 +60,7 @@
   @for (item of posts; track $index) {
   <div class="post">
     <img src="{{ item.uri_resource }}" alt="{{ item.description }}" />
+    <p>{{item.description}}</p>
   </div>
   }
 </div>
