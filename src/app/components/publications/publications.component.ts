@@ -45,7 +45,7 @@ export class PublicationsComponent {
     {
       id: 4,
       username: 'Daniel Lasso',
-      image: 'https://media.discordapp.net/attachments/1017156587795787820/1217703368936394792/FB_IMG_1710393257446.jpg?ex=6635c522&is=663473a2&hm=24eb106a564b4abcefdf4959d28b389e24b594e82b8b3dc6253d64af554188e4&=&format=webp&width=651&height=671',
+      image: 'https://www.optimalvirtualemployee.com/wp-content/uploads/2022/12/Web-Developer-skill.jpg',
       likes: 10,
       description: 'Real',
       comments: []
