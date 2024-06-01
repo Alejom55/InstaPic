@@ -29,7 +29,7 @@ export class PublicationsComponent {
     {
       id: 2,
       username: 'Alejandro Marín',
-      image: 'https://cdn.discordapp.com/attachments/1017156587795787820/1233561787916357683/image.png?ex=66361d30&is=6634cbb0&hm=6abfb7790ac8829e974f2621298f187829e1e4e778b97059b7d83e2d60eb36c2&',
+      image: 'https://websiteminds.weebly.com/uploads/1/4/2/3/142328969/blog-post-on-web-dev_orig.jpg',
       likes: 10,
       description: 'Así son',
       comments: []
