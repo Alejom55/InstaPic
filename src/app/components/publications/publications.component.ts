@@ -21,7 +21,7 @@ export class PublicationsComponent {
     let posts = [{
       id: 1,
       username: 'Juan Pablo Aguirre',
-      image: 'https://media.discordapp.net/attachments/1017156587795787820/1234942113976680562/image.png?ex=6635dcb8&is=66348b38&hm=32ef9864272d72ea4e9c5220dc93e1426ba0d6be918a82f7f0263608cd92204b&=&format=webp&quality=lossless',
+      image: 'https://miro.medium.com/v2/resize:fit:750/1*3T7J7csXY8u36acofw5N8g.jpeg',
       likes: 100,
       description: 'No nos gusta flutter',
       comments: []
