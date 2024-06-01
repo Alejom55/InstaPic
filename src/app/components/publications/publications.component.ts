@@ -37,7 +37,7 @@ export class PublicationsComponent {
     {
       id: 3,
       username: 'Santiago Arango',
-      image: 'https://media.discordapp.net/attachments/1017156587795787820/1232391706062618675/435502601_970571071742646_5230263591836170917_n.png?ex=6635cff7&is=66347e77&hm=269195b2e9e74fb329bc46cc641ce66250fcdd1e5bbc9040686a188aed7cf456&=&format=webp&quality=lossless',
+      image: 'https://www.bundlen.com/wp-content/uploads/2023/03/637ef1f502c0f83324cbf1ad_ABM-College-Web-developer-main.jpg',
       likes: 520,
       description: 'Me pasó :(',
       comments: []
