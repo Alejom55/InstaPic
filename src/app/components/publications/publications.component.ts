@@ -53,7 +53,7 @@ export class PublicationsComponent {
     {
       id: 5,
       username: 'Diego Murillo',
-      image: 'https://media.discordapp.net/attachments/1017156587795787820/1227718448940060672/Imagen_de_WhatsApp_2024-04-10_a_las_09.29.37_ddb6dc81.jpg?ex=6635f328&is=6634a1a8&hm=a1558dc3b68c6e4647a7de574b08598f326c40c7ca0f94511bd01084c37a463c&=&format=webp&width=800&height=671',
+      image: 'https://th.bing.com/th/id/R.6f4405e1a4d82dd86bce65f61e4a2606?rik=E9CXe%2bqla0xx%2bQ&pid=ImgRaw&r=0&PC=EMMX01&darkschemeovr=1',
       likes: 15550,
       description: 'Principio básico',
       comments: []
