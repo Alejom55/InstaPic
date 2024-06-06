@@ -6,11 +6,12 @@ import { AuthUserService } from '../../../utils/auth.service';
 import { Subject, combineLatest, filter } from 'rxjs';
 import { UsersService } from '../../../utils/users.service';
 import { Router, RouterLink } from '@angular/router';
+import { SearchComponent } from './search/search.component';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [UserProfileComponent, CommonModule, RouterLink],
+  imports: [UserProfileComponent, CommonModule, RouterLink, SearchComponent],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
@@ -22,9 +23,10 @@ export class NavBarComponent {
   email = ""
   name = ""
   followers: any[] = [];
+  isSearchVisible = false;
 
   userData: any;
-  constructor(private authUserService: AuthUserService, public auth: AuthService, private user: UsersService,private router: Router) { }
+  constructor(private authUserService: AuthUserService, public auth: AuthService, private user: UsersService, private router: Router) { }
 
   ngOnInit(): void {
     combineLatest([
@@ -67,12 +69,6 @@ export class NavBarComponent {
   acceptedFollowersCount: number = 0;
   countAcceptedFollowers(): void {
     this.acceptedFollowersCount = this.user.countAcceptedFollowers(this.followers);
-  }
-
-  
-  hola() {
-    const ruta = window.prompt("Ingrese el usuario:");
-    this.router.navigate([ruta]);
   }
 
 }

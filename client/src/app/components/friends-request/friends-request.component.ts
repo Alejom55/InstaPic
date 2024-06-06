@@ -21,19 +21,18 @@ export class FriendsRequestComponent {
   loading: boolean = true;
   pendingFollowers: Array<FriendRequest> = [];
   update = false;
-  constructor(private user: UsersService, private authUserService: AuthUserService) { 
+  constructor(private user: UsersService, private authUserService: AuthUserService) {
   }
 
   getUpdate(event: boolean) {
-    this.update = event;
+    // this.update = event;
     this.getPendingFollowers(this.userData);
 
   }
 
   ngOnChanges(event: boolean) {
+    this.pendingFollowers = [];
     this.getUpdate(event)
-    console.log(this.update)
-  
     if (this.userData) {
       this.getPendingFollowers(this.userData);
     }

@@ -68,32 +68,25 @@
     margin-top: 10px;
 }
 
-/* .post-grid {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 1px;
-    justify-content: center;
-} */
 .post-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* gap: 20px; */
-    gap: 50px 10px;
-    padding: 10px;
-
-    /* padding: 20px; */
+    gap: 50px 50px;
+    padding: 50px;
+    width: 100%;
+    
 }
 
 .post {
     width: 100%;
-    height: 40vh;
-    background-color: #fff;
+    height: 500px;
+    background-color: var(--bg-color);
 }
 
 .post img {
     width: 100%;
     height: 100%;
-    /* display: block; */
+    object-fit: contain;
 }
 
 .profile-top {

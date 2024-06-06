@@ -4,18 +4,17 @@
   <span class="section-friend-seeAll">Ver todos</span>
   }
 </div>
+
+@if(loading){
+<app-loading [message]="false" />
+} @else{
 @if (pendingFollowers.length === 0) {
 <span class="no-follows">No tienes solicitudes de amistad</span>
 }
 <div class="section-friend-request">
-  @if(loading){
-  <app-loading [message]="false"/>
-  } @for(request of pendingFollowers ; track request.id){
-  <friend-profile
-    [targetUserPicture]="request.senderPicture"
-    [targetUserNickname]="request.senderNickname"
-    [loggedInUserNickname]="loggedInUserNickname"
-    (clicked)="ngOnChanges($event)"
-  />
+  @for(request of pendingFollowers ; track request.id){
+  <friend-profile [targetUserPicture]="request.senderPicture" [targetUserNickname]="request.senderNickname"
+    [loggedInUserNickname]="loggedInUserNickname" (clicked)="ngOnChanges($event)" />
   }
 </div>
+}

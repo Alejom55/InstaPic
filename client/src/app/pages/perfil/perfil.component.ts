@@ -39,38 +39,44 @@ export class perfilComponent {
         this.userNickname = params.get('id');
         if (this.userNickname === userData.nickname) {
           this.Me = true;
+        }else{
+          this.Me = false;
         }
-        if (userData && this.Me === false) {
-          if (this.userNickname) {
+        if (userData) {
+          if (this.Me === false && this.userNickname) {
             this.checkIfUserFollows(userData, this.userNickname)
-          }
+            // console.log(this.checkIfUserFollows(userData, this.userNickname))
+          } else {
+            if (this.userNickname) {
+              this.findUserByNicknamePrivate(this.userNickname);
 
-        } else {
-          if (this.userNickname) {
-            this.findUserByNicknamePrivate(this.userNickname);
+            }
           }
-
         }
       });
     });
   }
+
   checkIfUserFollows(userData: any, userNickname: string) {
     this.user.checkIfUserFollows(userData.nickname, userNickname)
       .then(followData => {
         this.follow = followData;
+        if (this.userNickname) {
+          console.log(this.follow)
+    
+          if (followData === 'Accepted') {
+            this.findUserByNicknamePrivate(this.userNickname, this.follow);
+    
+          } else {
+            this.findUserByNickname(this.userNickname, this.follow);
+          }
+        }
       })
       .catch(error => {
         this.notFound = true;
         console.log('Error en checkIfUserFollows:', error);
       });
-    if (this.userNickname) {
-      if (this.follow === 'Accepted') {
-        this.findUserByNicknamePrivate(this.userNickname, this.follow);
 
-      } else {
-        this.findUserByNickname(this.userNickname, this.follow);
-      }
-    }
   }
   updateFollowers() { }
 
@@ -125,6 +131,20 @@ export class perfilComponent {
       .catch(error => {
         console.log('Error en followUser:', error);
       });
+  }
+
+  unFollowUser() {
+    if (this.userNickname) {
+      this.user.unFollowUser(this.userData.nickname, this.userNickname)
+        .then(() => {
+          if (this.userNickname) {
+            this.checkIfUserFollows(this.userData, this.userNickname);
+          }
+        })
+        .catch(error => {
+          console.log('Error en unFollowUser:', error);
+        });
+    }
   }
 
   acceptedFollowersCount: number = 0;

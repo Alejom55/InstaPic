@@ -10,7 +10,7 @@
     <div class="profile-top">
       <h2>{{ username }}</h2>
       @if (Me === false) { @if(follow === 'Accepted'){
-      <button class="unfollow-button create">Dejar de seguir</button>
+      <button class="unfollow-button create" (click)="unFollowUser()">Dejar de seguir</button>
       }@else if(follow === 'Pending') {
       <button class="pending-button create">Pendiente</button>
       }@else {
