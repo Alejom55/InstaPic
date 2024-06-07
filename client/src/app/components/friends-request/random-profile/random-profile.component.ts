@@ -28,14 +28,14 @@ export class RandomProfileComponent {
   }
 
   unFollowUser() {
-      this.user.unFollowUser(this.loggedInUserNickname, this.targetUserNickname)
-        .then(() => {
-            this.checkIfUserFollows(this.loggedInUserNickname, this.targetUserNickname);
-        })
-        .catch(error => {
-          console.log('Error en unFollowUser:', error);
-        });
-    
+    this.user.unFollowUser(this.loggedInUserNickname, this.targetUserNickname)
+      .then(() => {
+        this.checkIfUserFollows(this.loggedInUserNickname, this.targetUserNickname);
+      })
+      .catch(error => {
+        console.log('Error en unFollowUser:', error);
+      });
+
   }
 
 
@@ -45,7 +45,7 @@ export class RandomProfileComponent {
         this.follow = followData;
         if (followData === 'Pending') {
           this.follow = 'Pending';
-        }else{
+        } else {
           this.follow = false;
         }
 

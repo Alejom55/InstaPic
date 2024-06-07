@@ -28,7 +28,7 @@ export class FriendsRequestComponent {
   getUpdate(event: boolean) {
     this.getPendingFollowers(this.userData);
     if (this.pendingFollowers.length === 0) {
-      this.getRandomUsers(this.userData);
+      this.getRandomUsers(this.loggedInUserNickname);
     }
 
   }
@@ -49,8 +49,8 @@ export class FriendsRequestComponent {
     });
   }
 
-  getRandomUsers(userData: any) {
-    this.user.findRandomUsersNotFollowed(userData.nickname).then(users => {
+  getRandomUsers(username: any) {
+    this.user.findRandomUsersNotFollowed(username).then(users => {
       this.randomUsers = users;
     });
 

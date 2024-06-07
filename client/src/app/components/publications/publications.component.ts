@@ -28,7 +28,6 @@ export class PublicationsComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userData'] && this.userData) {
-      console.log(this.userData);
       this.loadPosts();
     }
   }
