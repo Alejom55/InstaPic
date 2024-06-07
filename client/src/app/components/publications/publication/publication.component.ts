@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { formatDistanceToNow } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 interface Comentario {
   id: number;
@@ -31,4 +33,7 @@ export class PublicationComponent {
   isLogged = false;
   newComment = '';
 
+  ngOnInit() {
+    this.post_date = formatDistanceToNow(new Date(this.post_date), { addSuffix: true, locale: es })
+  }
 }

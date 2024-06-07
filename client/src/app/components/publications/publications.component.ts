@@ -1,6 +1,7 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { PublicationComponent } from './publication/publication.component';
 import { PostsService } from '../../../utils/posts.service';
+import { LoadingComponent } from '../loading/loading.component';
 type Post = {
   id: number;
   username: string;
@@ -14,13 +15,14 @@ type Post = {
 @Component({
   selector: 'main-publications',
   standalone: true,
-  imports: [PublicationComponent],
+  imports: [PublicationComponent, LoadingComponent],
   templateUrl: './publications.component.html',
   styleUrl: './publications.component.css'
 })
 export class PublicationsComponent {
-  posts:Array<Post> = []
+  posts: Array<Post> = []
   @Input() userData: any;
+  loading = true;
 
   constructor(private postsService: PostsService) {
 
@@ -35,7 +37,7 @@ export class PublicationsComponent {
     try {
       const rawPosts = await this.postsService.getFollowingUserPosts(this.userData.nickname);
       this.posts = rawPosts.map((rawPost: any) => this.mapToPost(rawPost));
-      console.log(this.posts);
+      this.loading = false;
     } catch (error) {
       console.error('Error fetching posts:', error);
     }

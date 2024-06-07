@@ -55,14 +55,18 @@ export class PostsService {
     };
     try {
       const response = await axios.get(`${this.apiURL}/post/following-users-posts/${username}`, config);
-      const posts = response.data.map((post: { post_date: string | number | Date; }) => ({
+      const posts = response.data.map((post: { post_date: string | number | Date }) => ({
         ...post,
-        post_date: formatDistanceToNow(new Date(post.post_date), { addSuffix: true, locale: es })
+        // post_date: formatDistanceToNow(new Date(post.post_date), { addSuffix: true, locale: es })
       }));
+      posts.sort((a: any, b: any) => {
+        return new Date(b.post_date).getTime() - new Date(a.post_date).getTime();
+      });
+
       return posts;
     } catch (e) {
       console.log(e);
-      throw e; // Re-throw the error if needed
+      throw e;
     }
   }
 

@@ -1,12 +1,11 @@
+@if(loading){
+<app-loading [message]="false" />
+}@else {
+
 <div class="posts-container">
   @for(post of posts; track post.id ){
-  <publication
-    [username]="post.username"
-    [image]="post.UrlImage"
-    [id]="post.id"
-    [description]="post.description"
-    [userPicture]="post.userPicture"
-    [post_date]="post.post_date"
-  />
+  <publication [username]="post.username" [image]="post.UrlImage" [id]="post.id" [description]="post.description"
+    [userPicture]="post.userPicture" [post_date]="post.post_date" />
   }
 </div>
+}

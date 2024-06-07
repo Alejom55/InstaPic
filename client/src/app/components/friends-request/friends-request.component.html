@@ -1,8 +1,6 @@
 @if(loading){
 <app-loading [message]="false" />
-
 } @else{
-
 @if (pendingFollowers.length === 0) {
 <div class="section-friend-div">
   <span class="section-span-friend-request">Personas que quizas conozcas</span>
@@ -10,7 +8,7 @@
 <div class="section-friend-request">
   @for(request of randomUsers ; track request.id){
   <app-random-profile [targetUserPicture]="request.picture" [targetUserNickname]="request.nickname"
-    [loggedInUserNickname]="loggedInUserNickname" (clicked)="ngOnChanges($event)" />
+    [loggedInUserNickname]="loggedInUserNickname" (clicked)="ngOnChanges()" />
   }
 </div>
 }@else {
@@ -20,7 +18,7 @@
 <div class="section-friend-request">
   @for(request of pendingFollowers ; track request.id){
   <friend-profile [targetUserPicture]="request.senderPicture" [targetUserNickname]="request.senderNickname"
-    [loggedInUserNickname]="loggedInUserNickname" (clicked)="ngOnChanges($event)" />
+    [loggedInUserNickname]="loggedInUserNickname" (clicked)="ngOnChanges()" />
   }
 </div>
 }

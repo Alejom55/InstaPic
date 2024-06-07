@@ -25,23 +25,24 @@ export class FriendsRequestComponent {
   constructor(private user: UsersService) {
   }
 
-  getUpdate(event: boolean) {
+  getUpdate() {
     this.getPendingFollowers(this.userData);
     if (this.pendingFollowers.length === 0) {
-      this.getRandomUsers(this.loggedInUserNickname);
+      this.getRandomUsers(this.userData);
     }
-
+    this.loading = false;
   }
 
-  ngOnChanges(event: boolean) {
+  ngOnChanges() {
     this.pendingFollowers = [];
-    this.getUpdate(event)
+    this.getUpdate()
     if (this.userData) {
       this.getPendingFollowers(this.userData);
     }
   }
 
   getPendingFollowers(userData: any) {
+    this.loading = true;
     this.user.getPendingFollowers(userData.nickname).then(requests => {
       this.pendingFollowers = requests;
       this.loggedInUserNickname = userData.nickname;
@@ -49,9 +50,12 @@ export class FriendsRequestComponent {
     });
   }
 
-  getRandomUsers(username: any) {
-    this.user.findRandomUsersNotFollowed(username).then(users => {
+  getRandomUsers(userData: any) {
+    this.loading = true;
+    this.user.findRandomUsersNotFollowed(userData.nickname).then(users => {
       this.randomUsers = users;
+      this.loading = false;
+
     });
 
   }
