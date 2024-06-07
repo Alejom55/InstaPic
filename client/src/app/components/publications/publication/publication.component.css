@@ -4,6 +4,7 @@
   position: relative;
   justify-content: center;
   display: grid;
+  padding-bottom: 40px;
 }
 
 .username-container {
@@ -41,6 +42,9 @@
 
 .description-container {
   margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+
 }
 
 .overlay {
@@ -85,6 +89,10 @@
 
 .no-border {
   border: none;
+
+}
+.pointer{
+  cursor: pointer;
 
 }
 

@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UsersService } from '../../../../utils/users.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'friend-profile',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   template: `
   <div class="section-user-info">
-   <button class="btn-close" (click)="clicked.emit(true)">X</button>
-  <div class="section-profile-pic">
+  <div class="section-profile-pic" routerLink="/{{targetUserNickname}}">
     <img src="{{ targetUserPicture }}" alt="foto de perfil" />
   </div>
-  <div class="section-profile-info">
+  <div class="section-profile-info" routerLink="/{{targetUserNickname}}">
     <span class="span-section-profile-username">{{ targetUserNickname }}</span>
   </div>
   <div class="section-user-buttons">

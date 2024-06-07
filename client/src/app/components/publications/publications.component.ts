@@ -26,32 +26,12 @@ export class PublicationsComponent {
 
   }
 
-  ngOnInit(): void {
-    if (this.userData) {
-
-      console.log(this.userData)
-    }
-    // this.postsService.getFollowingUserPosts(this.userData.nickname).then(posts => {
-    //   console.log(posts)
-    // })
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userData'] && this.userData) {
       console.log(this.userData);
       this.loadPosts();
     }
   }
-
-  // private async loadPosts(): Promise<void> {
-  //   try {
-  //     const posts = await this.postsService.getFollowingUserPosts(this.userData.nickname);
-  //     console.log(posts);
-  //     this.posts = posts;
-  //   } catch (error) {
-  //     console.error('Error fetching posts:', error);
-  //   }
-  // }
   private async loadPosts(): Promise<void> {
     try {
       const rawPosts = await this.postsService.getFollowingUserPosts(this.userData.nickname);

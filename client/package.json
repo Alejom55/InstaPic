@@ -24,6 +24,7 @@
     "@ngrx/store": "^17.2.0",
     "@supabase/supabase-js": "^2.43.4",
     "axios": "^1.7.2",
+    "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

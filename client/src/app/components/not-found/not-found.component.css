@@ -3,10 +3,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - 10vh);
-    min-height: calc(100vh - 70px);
+    height: calc(100vh - 9vh);
     text-align: center;
-    background-color: #f8f8f8;
 }
 
 .not-found h1 {

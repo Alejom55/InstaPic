@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 interface Comentario {
   id: number;
@@ -14,7 +15,7 @@ interface Comentario {
 @Component({
   selector: 'publication',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './publication.component.html',
   styleUrl: './publication.component.css'
 })

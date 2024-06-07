@@ -5,11 +5,12 @@ import { PublicationComponent } from '../../components/publications/publication/
 import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
 import { UsersService } from '../../../utils/users.service';
 import { AuthUserService } from '../../../utils/auth.service';
+import { WelcomeComponent } from '../../components/welcome/welcome.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavBarComponent, FriendsRequestComponent, PublicationsComponent, PublicationComponent],
+  imports: [NavBarComponent, FriendsRequestComponent, PublicationsComponent, PublicationComponent, WelcomeComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

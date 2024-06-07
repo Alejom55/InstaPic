@@ -1,7 +1,7 @@
 <div class="publication-container">
   <div class="username-container">
-    <img src="{{ userPicture }}" alt="Foto de perfil" class="profile-pic" />
-    <p>{{ username }}</p>
+    <img src="{{ userPicture }}" alt="Foto de perfil" class="profile-pic pointer" routerLink="/{{ username }}" />
+    <p class="pointer" routerLink="/{{ username }}">{{ username }}</p>
   </div>
   <div class="image-container">
     <img src="{{ image }}" alt="Image 8" class="publication-image" />
@@ -16,7 +16,8 @@
   </div>
   <div>
     <div class="description-container">
-      <span class="description no-border">{{ description }}</span>
+      <span class="no-border">{{ description }}</span>
+      <span class="description">{{post_date}}</span>
     </div>
     <!-- <div class="comments">
       @for(comment of getComments(); track comment.id ){

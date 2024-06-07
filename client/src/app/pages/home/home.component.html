@@ -1,6 +1,8 @@
 <div class="container">
   <main class="main-content">
-    @if(userData === null){ Bienvenido }@else{
+    @if(userData === null){ 
+      <app-welcome></app-welcome>
+     }@else{
     <section class="section-friends-side">
       <section-friends-request [userData]="userData"></section-friends-request>
     </section>

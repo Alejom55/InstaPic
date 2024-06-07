@@ -3,6 +3,8 @@ import axios from 'axios';
 import { environment } from '../environments/environment';
 import { AuthUserService } from './auth.service';
 import { UploadImage } from '../app/interface/posts';
+import { formatDistanceToNow } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,19 @@ export class PostsService {
 
   }
 
+  // public async getFollowingUserPosts(username: string): Promise<any> {
+  //   const config = {
+  //     headers: {
+  //       'Authorization': `Bearer ${this.userData.token}`
+  //     }
+  //   };
+  //   try {
+  //     const response = await axios.get(`${this.apiURL}/post/following-users-posts/${username}`, config)
+  //     return response.data
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
   public async getFollowingUserPosts(username: string): Promise<any> {
     const config = {
       headers: {
@@ -39,13 +54,16 @@ export class PostsService {
       }
     };
     try {
-      const response = await axios.get(`${this.apiURL}/post/following-users-posts/${username}`, config)
-      return response.data
+      const response = await axios.get(`${this.apiURL}/post/following-users-posts/${username}`, config);
+      const posts = response.data.map((post: { post_date: string | number | Date; }) => ({
+        ...post,
+        post_date: formatDistanceToNow(new Date(post.post_date), { addSuffix: true, locale: es })
+      }));
+      return posts;
     } catch (e) {
-      console.log(e)
+      console.log(e);
+      throw e; // Re-throw the error if needed
     }
-
-
   }
 
 }
