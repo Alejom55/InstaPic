@@ -1,0 +1,15 @@
+<div class="section-user-info">
+    <div class="section-profile-pic" routerLink="/{{targetUserNickname}}">
+        <img src="{{ targetUserPicture }}" alt="foto de perfil" />
+    </div>
+    <div class="section-profile-info" routerLink="/{{targetUserNickname}}">
+        <span class="span-section-profile-username">{{ targetUserNickname }}</span>
+    </div>
+    <div class="section-user-buttons">
+        @if (follow === 'Pending'){
+        <span class="span-friend-ignore" (click)="unFollowUser()">Pendiente</span>
+        }@else {
+        <span class="span-friend-accept" (click)="followUser()">Seguir</span>
+        }
+    </div>
+</div>

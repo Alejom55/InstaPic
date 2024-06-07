@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/entities/user.entity';
 import { Post } from './entities/post.entity';
 import { Repository } from 'typeorm';
+import { Follower } from 'src/follower/entities/follower.entity';
 
 @Injectable()
 export class PostService {
@@ -12,6 +13,8 @@ export class PostService {
     private postRepository: Repository<Post>,
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    @InjectRepository(Follower)
+    private followerRepository: Repository<Follower>,
   ) { }
 
   async create(createPostDto: CreatePostDto): Promise<void> {
@@ -32,19 +35,32 @@ export class PostService {
     this.postRepository.save(post);
   }
 
-  findAll() {
-    return `This action returns all post`;
+  async getPostsFromFollowedUsers(nickname: string): Promise<Post[]> {
+    const user = await this.userRepository.findOne({ where: { nickname } });
+    if (!user) {
+      throw new NotFoundException(`User not found`);
+    }
+
+    const followedUserIds = await this.followerRepository
+      .createQueryBuilder('follower')
+      .leftJoinAndSelect('follower.user', 'user')
+      .where('follower.user_follower_id = :userId', { userId: user.id })
+      .andWhere('follower.state = :state', { state: 'Accepted' })
+      .getMany();
+
+    const followedIds = followedUserIds.map(follower => follower.user.id);
+
+    if (followedIds.length === 0) {
+      return [];
+    }
+
+    const posts = await this.postRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.user', 'user')
+      .where('post.user.id IN (:...followedIds)', { followedIds })
+      .getMany();
+
+    return posts;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
-  }
-
-  // update(id: number, updatePostDto: UpdatePostDto) {
-  //   return `This action updates a #${id} post`;
-  // }
-
-  remove(id: number) {
-    return `This action removes a #${id} post`;
-  }
 }

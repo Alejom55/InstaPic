@@ -2,16 +2,16 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { FriendProfileComponent } from './friend-profile/friend-profile.component';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../utils/users.service';
-import { AuthUserService } from '../../../utils/auth.service';
 import { FriendRequest } from '../../interface/follows';
 import { LoadingComponent } from '../loading/loading.component';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
+import { RandomProfileComponent } from './random-profile/random-profile.component';
 
 @Component({
   selector: 'section-friends-request',
   standalone: true,
-  imports: [FriendProfileComponent, LoadingComponent, CommonModule],
+  imports: [FriendProfileComponent, LoadingComponent, CommonModule, RandomProfileComponent],
   templateUrl: './friends-request.component.html',
   styleUrl: './friends-request.component.css'
 })
@@ -20,13 +20,16 @@ export class FriendsRequestComponent {
   @Input() userData: any;
   loading: boolean = true;
   pendingFollowers: Array<FriendRequest> = [];
+  randomUsers: Array<any> = [];
   update = false;
-  constructor(private user: UsersService, private authUserService: AuthUserService) {
+  constructor(private user: UsersService) {
   }
 
   getUpdate(event: boolean) {
-    // this.update = event;
     this.getPendingFollowers(this.userData);
+    if (this.pendingFollowers.length === 0) {
+      this.getRandomUsers(this.userData);
+    }
 
   }
 
@@ -44,6 +47,13 @@ export class FriendsRequestComponent {
       this.loggedInUserNickname = userData.nickname;
       this.loading = false;
     });
+  }
+
+  getRandomUsers(userData: any) {
+    this.user.findRandomUsersNotFollowed(userData.nickname).then(users => {
+      this.randomUsers = users;
+    });
+
   }
 
 

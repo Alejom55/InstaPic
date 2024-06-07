@@ -28,7 +28,9 @@ export class perfilComponent {
   follow: boolean | string = false;
   Me: boolean = false;
   notFound: boolean = false;
-  constructor(private route: ActivatedRoute, private user: UsersService, private authUserService: AuthUserService) { }
+  constructor(private route: ActivatedRoute, private user: UsersService, private authUserService: AuthUserService) {
+
+  }
 
 
 
@@ -39,13 +41,12 @@ export class perfilComponent {
         this.userNickname = params.get('id');
         if (this.userNickname === userData.nickname) {
           this.Me = true;
-        }else{
+        } else {
           this.Me = false;
         }
         if (userData) {
           if (this.Me === false && this.userNickname) {
             this.checkIfUserFollows(userData, this.userNickname)
-            // console.log(this.checkIfUserFollows(userData, this.userNickname))
           } else {
             if (this.userNickname) {
               this.findUserByNicknamePrivate(this.userNickname);
@@ -62,11 +63,10 @@ export class perfilComponent {
       .then(followData => {
         this.follow = followData;
         if (this.userNickname) {
-          console.log(this.follow)
-    
+
           if (followData === 'Accepted') {
             this.findUserByNicknamePrivate(this.userNickname, this.follow);
-    
+
           } else {
             this.findUserByNickname(this.userNickname, this.follow);
           }
@@ -81,6 +81,7 @@ export class perfilComponent {
   updateFollowers() { }
 
   findUserByNickname(userNickname: string, followData: boolean | string = false) {
+    this.loading = true;
     this.user.findUserByNickname(userNickname)
       .then(findData => {
         this.username = findData.nickname;
@@ -102,13 +103,16 @@ export class perfilComponent {
 
 
   findUserByNicknamePrivate(userNickname: string, followData: boolean | string = false) {
+    this.loading = true;
     this.user.findUserByNicknamePrivate(userNickname)
       .then(findData => {
         this.username = findData.nickname;
         this.followers = findData.followers;
         this.following = findData.following;
         this.picture = findData.picture;
-        this.posts = findData.posts;
+        this.posts = findData.posts.sort((a: any, b: any) => {
+          return new Date(b.post_date).getTime() - new Date(a.post_date).getTime();
+        });
         this.follow = followData;
         this.loading = false;
         this.countAcceptedFollowers();

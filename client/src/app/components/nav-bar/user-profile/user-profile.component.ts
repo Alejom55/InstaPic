@@ -8,17 +8,16 @@ import { RouterLink } from '@angular/router';
   template: `
   <div class="container">
     <div class="nav-user-info">
-      <a routerLink="/{{username}}">
-      <div class="nav-profile-pic">
+
+      <div class="nav-profile-pic" routerLink="/{{userData.nickname}}">
           <img
-            src={{picture}}
+            src={{userData.picture}}
             alt="foto de perfil"
           />
         </div>
-      </a>
       <div class="nav-profile-info">
-      <a routerLink="/{{username}}" class="span-nav-profile-username">
-          {{username}}
+      <a routerLink="/{{userData.nickname}}" class="span-nav-profile-username">
+          {{userData.nickname}}
       </a>
         <span class="span-nav-profile-friends">Seguidores: {{followers}}</span>
       </div>
@@ -35,6 +34,10 @@ import { RouterLink } from '@angular/router';
     height: 44px;
     overflow: hidden;
     border-radius: 50%;
+}
+.nav-profile-pic:hover{
+  cursor: pointer;
+
 }
 
 .nav-profile-pic img {
@@ -65,10 +68,10 @@ import { RouterLink } from '@angular/router';
 })
 export class UserProfileComponent {
   @Input() username = '';
-  @Input() friends = 0;
   @Input() picture = '';
-  @Input() followers:number = 0;
-
-
+  @Input() followers: number = 0;
+  @Input() userData: any;
+  constructor() {
+  }
 
 }

@@ -120,6 +120,20 @@ export class UsersService {
     return followingArray.filter(follower => follower.state === 'Accepted').length;
   }
 
+  public async findRandomUsersNotFollowed(nickname: string): Promise<any> {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${this.userData.token}`
+      }
+    };
+    try {
+      const response = await axios.get(`${this.apiURL}/auth/${nickname}/random-users-not-followed`, config)
+      return response.data
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
 
 
 }

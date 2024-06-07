@@ -46,8 +46,6 @@ export class NavBarComponent {
         });
 
         this.userData = userData;
-
-
         if (this.isLoggedInRecently) {
           this.authUserService.createUser(userData);
           this.isLoggedInRecently = false;

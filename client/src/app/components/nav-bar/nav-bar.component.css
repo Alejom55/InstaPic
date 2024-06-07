@@ -5,11 +5,8 @@
     background-color: var(--bg-color);
     min-height: 70px;
     height: 9vh;
-
     justify-content: space-between;
-    /* Esto colocará los elementos a los extremos del nav */
     align-items: center;
-    /* Esto alineará verticalmente los elementos */
 
 }
 

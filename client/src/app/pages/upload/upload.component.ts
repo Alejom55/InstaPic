@@ -63,7 +63,6 @@ export class UploadComponent {
     const newFileName = `${timestamp}_${originalFileName}`;
     this.file = new File([this.file], newFileName, { type: this.file.type });
     this.supabaseService.upload(this.file, folderName).then(URL => {
-      // console.log(URL);
       if (description) {
         const data: UploadImage = {
           uri_resource: URL,

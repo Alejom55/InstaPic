@@ -14,30 +14,22 @@ export class AuthController {
     return this.authService.create(createAuthDto);
   }
 
-  @Get()
-  @UseGuards(AuthGuard)
-  findAll() {
-    return this.authService.findAll();
-  }
-
   @Get(':nickname')
   findUserPublic(@Param('nickname') nickname: string): Promise<UserPublicDto | BadRequestException> {
     return this.authService.findUserPublic(nickname);
   }
 
   @Get(':nickname/private')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   findUserAndPostsPrivate(@Param('nickname') nickname: string): Promise<User | BadRequestException> {
     return this.authService.findUserAndPostsPrivate(nickname);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-  //   return this.authService.update(+id, updateAuthDto);
-  // }
+  @Get(':nickname/random-users-not-followed')
+  // @UseGuards(AuthGuard)
+  findRandomUsersNotFollowed(@Param('nickname') nickname: string) {
+    return this.authService.findRandomUsersNotFollowed(nickname);
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.authService.remove(+id);
-  // }
+
 }

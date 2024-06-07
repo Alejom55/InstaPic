@@ -1,21 +1,24 @@
 <div class="publication-container">
-  <div class="username-container"><p>{{ username }}</p></div>
+  <div class="username-container">
+    <img src="{{ userPicture }}" alt="Foto de perfil" class="profile-pic" />
+    <p>{{ username }}</p>
+  </div>
   <div class="image-container">
     <img src="{{ image }}" alt="Image 8" class="publication-image" />
-    <div class="overlay">
+    <!-- <div class="overlay">
       <div class="overlay-content">
         <div class="heart-icon">
           <i class="fi fi-sr-heart"></i>
         </div>
         <p>{{ likes }}</p>
       </div>
-    </div>
+    </div> -->
   </div>
   <div>
     <div class="description-container">
-      <span>{{ username }}: </span><span class="description no-border">{{ description }}</span>
+      <span class="description no-border">{{ description }}</span>
     </div>
-    <div class="comments">
+    <!-- <div class="comments">
       @for(comment of getComments(); track comment.id ){
       <div class="comment">
         <span>{{ comment.username }}: </span>
@@ -49,6 +52,6 @@
           </div>
         </button>
       </form> 
-    </div>
+    </div> -->
   </div>
 </div>

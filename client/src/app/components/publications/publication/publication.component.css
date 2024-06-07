@@ -1,85 +1,94 @@
 .publication-container {
-    width: 700px;
-    /* height: 795px; */
-    margin: 10px;
-    position: relative;
-    justify-content: center;
-    display: grid;
+  width: 700px;
+  margin: 10px;
+  position: relative;
+  justify-content: center;
+  display: grid;
 }
 
 .username-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2px 0;
-    border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 2px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+
 }
 
 .image-container {
-    position: relative;
-    padding: 5px 0;
+  position: relative;
+  padding: 5px 0;
 }
 
 .publication-image {
-    width: 668px;
-    height: 568px;
-    object-fit: cover;
+  width: 668px;
+  height: 568px;
+  object-fit: contain;
+  background-color: var(--bg-color);
 }
 
-.description{
-    color: #4b4b4b;
-    font-weight: 400;
+.description {
+  color: #4b4b4b;
+  font-weight: 400;
 }
 
 .description-container {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
+
 .overlay {
-    position: absolute;
-    top: 0;
-    width: 668px;
-    height: 568px;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  top: 0;
+  width: 668px;
+  height: 568px;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .overlay:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 .overlay-content {
-    color: #fff;
-    text-align: center;
-    font-size: large;
+  color: #fff;
+  text-align: center;
+  font-size: large;
 }
 
 .heart-icon {
-    color: white;
+  color: white;
 }
 
 .fi {
-    color: #fff;
-    font-size: xxx-large;
+  color: #fff;
+  font-size: xxx-large;
 }
 
-.comment-input{
-    width: 80%;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    outline: none;
+.comment-input {
+  width: 80%;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
 }
 
-.no-border{
-    border: none;
+.no-border {
+  border: none;
 
 }
 
-button {
+/* button {
     font-family: inherit;
     font-size: 12px;
     background: var(--main-color);
@@ -132,5 +141,4 @@ button {
     to {
       transform: translateY(-0.1em);
     }
-  }
-  
+  } */

@@ -28,7 +28,6 @@ export class HomeComponent {
     this.authUserService.userData$.subscribe(userData => {
       this.userData = userData;
       this.logged = true;
-      // console.log(this.userData);
     });
   }
 

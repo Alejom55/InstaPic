@@ -1,12 +1,12 @@
 .container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    max-height: calc(100vh - 9vh);
 }
 .main-content {
     display: flex;
     flex: 1;
-    max-height: calc(100vh - 76px);
+    max-height: calc(100vh - 9vh);
 }
 
 .section-friends-side {

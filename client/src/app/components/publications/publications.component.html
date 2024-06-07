@@ -1,12 +1,12 @@
 <div class="posts-container">
-  <!-- @for(post of get(); track post.id ){
+  @for(post of posts; track post.id ){
   <publication
     [username]="post.username"
-    [image]="post.image"
+    [image]="post.UrlImage"
     [id]="post.id"
     [description]="post.description"
-    [likes]="post.likes"
-    [comments]="post.comments"
+    [userPicture]="post.userPicture"
+    [post_date]="post.post_date"
   />
-  } -->
+  }
 </div>

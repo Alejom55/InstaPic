@@ -31,4 +31,21 @@ export class PostsService {
     }
 
   }
+
+  public async getFollowingUserPosts(username: string): Promise<any> {
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${this.userData.token}`
+      }
+    };
+    try {
+      const response = await axios.get(`${this.apiURL}/post/following-users-posts/${username}`, config)
+      return response.data
+    } catch (e) {
+      console.log(e)
+    }
+
+
+  }
+
 }

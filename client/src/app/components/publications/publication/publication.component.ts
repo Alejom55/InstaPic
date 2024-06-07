@@ -25,63 +25,9 @@ export class PublicationComponent {
   @Input() comments: Comentario[] = []
   @Input() likes = 0
   @Input() id = 0
+  @Input() userPicture = ''
+  @Input() post_date = ''
   isLogged = false;
   newComment = '';
-
-  submitComment() {
-    if(JSON.stringify(this.getUser()) === "{}"){
-      alert("Inicia Sesion para poder comentar >///<")
-      return
-    }
-    if (this.newComment === ''){
-      return
-    }
-    this.addComment(this.id, this.newComment, this.getUser().username);
-    this.newComment = '';
-  }
-
-  getUser() {
-    let user = JSON.parse(localStorage.getItem('user') || "{}");
-    return user;
-  }
-
-  getComments() {
-    let posts = JSON.parse(localStorage.getItem('posts') || '{}');
-    let post = posts.find((post: { id: number; }) => post.id === this.id);
-    if (localStorage.getItem('user')) {
-      this.isLogged = true;
-    } else {
-      this.isLogged = false;
-    }
-    return post.comments;
-  }
-
-  post(key: string, data: any) {
-    try {
-      localStorage.setItem(key, JSON.stringify(data))
-    } catch (e) {
-      console.error('Error storing data:', e);
-    }
-  }
-
-  addComment(postId: number, newComment: string, username: string = 'Your Username') {
-    const posts = JSON.parse(localStorage.getItem('posts') || '{}');
-    const matchingPost = posts.find((post: { id: number; }) => post.id === postId);
-    if (matchingPost) {
-      const commented = this.comments || [];
-      const newId = commented.length ? Math.max(...commented.map(c => c.id)) + 1 : 1;
-      matchingPost.comments.push({
-        id: newId,
-        username: username,
-        comment: newComment,
-        fecha: new Date()
-      });
-      localStorage.setItem('posts', JSON.stringify(posts));
-      console.log('Comment added successfully!');
-    } else {
-      console.error('Post with ID', postId, 'not found');
-    }
-  }
-
 
 }

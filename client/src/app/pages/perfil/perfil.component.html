@@ -1,6 +1,6 @@
 @if(loading){
-<app-loading></app-loading>
-} @if (notFound) {
+<app-loading></app-loading>}@else{
+@if (notFound) {
 <app-not-found></app-not-found>
 }@else{
 
@@ -65,3 +65,4 @@
   }
 </div>
 } }
+}

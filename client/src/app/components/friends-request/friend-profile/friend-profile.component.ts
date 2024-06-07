@@ -16,7 +16,7 @@ import { UsersService } from '../../../../utils/users.service';
   </div>
   <div class="section-user-buttons">
     <span class="span-friend-accept"(click)="acceptFollowRequest()">Aceptar</span>
-    <span class="span-firend-ignore"(click)="rejectFollowRequest()">Ignorar</span>
+    <span class="span-friend-ignore"(click)="rejectFollowRequest()">Ignorar</span>
   </div>
 </div>
 `,
